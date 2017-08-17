@@ -14,7 +14,11 @@
 		37437E7C1F45731900E60BB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37437E7B1F45731900E60BB6 /* Assets.xcassets */; };
 		37437E7F1F45731900E60BB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37437E7D1F45731900E60BB6 /* LaunchScreen.storyboard */; };
 		37437E8A1F45731900E60BB6 /* SYSUJwxtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E891F45731900E60BB6 /* SYSUJwxtTests.swift */; };
+		37437E951F45755C00E60BB6 /* JwxtApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E941F45755C00E60BB6 /* JwxtApiClient.swift */; };
+		37437E971F457E2B00E60BB6 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E961F457E2B00E60BB6 /* Course.swift */; };
+		37437E991F45883600E60BB6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E981F45883600E60BB6 /* LoginViewController.swift */; };
 		9C3AD3DD39EBC3671008E11C /* Pods_SYSUJwxt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6F04DC217E695ED310F937F /* Pods_SYSUJwxt.framework */; };
+		DA66415702A00A8187A36665 /* Pods_SYSUJwxtTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AB2205F0CCDDE8E223A263 /* Pods_SYSUJwxtTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14AB2205F0CCDDE8E223A263 /* Pods_SYSUJwxtTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SYSUJwxtTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		37437E6F1F45731900E60BB6 /* SYSUJwxt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SYSUJwxt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37437E721F45731900E60BB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37437E741F45731900E60BB6 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -39,9 +44,14 @@
 		37437E851F45731900E60BB6 /* SYSUJwxtTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SYSUJwxtTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37437E891F45731900E60BB6 /* SYSUJwxtTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYSUJwxtTests.swift; sourceTree = "<group>"; };
 		37437E8B1F45731900E60BB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37437E941F45755C00E60BB6 /* JwxtApiClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JwxtApiClient.swift; sourceTree = "<group>"; };
+		37437E961F457E2B00E60BB6 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		37437E981F45883600E60BB6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		839F677C4E17E37A0A9C5CA3 /* Pods-SYSUJwxtTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYSUJwxtTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SYSUJwxtTests/Pods-SYSUJwxtTests.release.xcconfig"; sourceTree = "<group>"; };
 		8899B47F795DBCE47CA5D79E /* Pods-SYSUJwxt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYSUJwxt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SYSUJwxt/Pods-SYSUJwxt.debug.xcconfig"; sourceTree = "<group>"; };
 		9421CEAFCBA497AC77038348 /* Pods-SYSUJwxt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYSUJwxt.release.xcconfig"; path = "Pods/Target Support Files/Pods-SYSUJwxt/Pods-SYSUJwxt.release.xcconfig"; sourceTree = "<group>"; };
 		A6F04DC217E695ED310F937F /* Pods_SYSUJwxt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SYSUJwxt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF8F73B1250B95DB0A26E3DC /* Pods-SYSUJwxtTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYSUJwxtTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SYSUJwxtTests/Pods-SYSUJwxtTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA66415702A00A8187A36665 /* Pods_SYSUJwxtTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +104,9 @@
 				37437E7B1F45731900E60BB6 /* Assets.xcassets */,
 				37437E7D1F45731900E60BB6 /* LaunchScreen.storyboard */,
 				37437E801F45731900E60BB6 /* Info.plist */,
+				37437E941F45755C00E60BB6 /* JwxtApiClient.swift */,
+				37437E961F457E2B00E60BB6 /* Course.swift */,
+				37437E981F45883600E60BB6 /* LoginViewController.swift */,
 			);
 			path = SYSUJwxt;
 			sourceTree = "<group>";
@@ -111,6 +125,8 @@
 			children = (
 				8899B47F795DBCE47CA5D79E /* Pods-SYSUJwxt.debug.xcconfig */,
 				9421CEAFCBA497AC77038348 /* Pods-SYSUJwxt.release.xcconfig */,
+				BF8F73B1250B95DB0A26E3DC /* Pods-SYSUJwxtTests.debug.xcconfig */,
+				839F677C4E17E37A0A9C5CA3 /* Pods-SYSUJwxtTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -119,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				A6F04DC217E695ED310F937F /* Pods_SYSUJwxt.framework */,
+				14AB2205F0CCDDE8E223A263 /* Pods_SYSUJwxtTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -150,9 +167,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 37437E911F45731900E60BB6 /* Build configuration list for PBXNativeTarget "SYSUJwxtTests" */;
 			buildPhases = (
+				EA729C835A9AAF4F6DBA3331 /* [CP] Check Pods Manifest.lock */,
 				37437E811F45731900E60BB6 /* Sources */,
 				37437E821F45731900E60BB6 /* Frameworks */,
 				37437E831F45731900E60BB6 /* Resources */,
+				B720A9AF5BBD3D476EEED06E /* [CP] Embed Pods Frameworks */,
+				48E4D111ACA668DBE457C7E5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -227,6 +247,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		48E4D111ACA668DBE457C7E5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SYSUJwxtTests/Pods-SYSUJwxtTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		73011812E9B57E751B356553 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -278,6 +313,42 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SYSUJwxt/Pods-SYSUJwxt-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B720A9AF5BBD3D476EEED06E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SYSUJwxtTests/Pods-SYSUJwxtTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kanna.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SYSUJwxtTests/Pods-SYSUJwxtTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA729C835A9AAF4F6DBA3331 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SYSUJwxtTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -285,7 +356,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37437E991F45883600E60BB6 /* LoginViewController.swift in Sources */,
+				37437E951F45755C00E60BB6 /* JwxtApiClient.swift in Sources */,
 				37437E771F45731900E60BB6 /* SecondViewController.swift in Sources */,
+				37437E971F457E2B00E60BB6 /* Course.swift in Sources */,
 				37437E731F45731900E60BB6 /* AppDelegate.swift in Sources */,
 				37437E751F45731900E60BB6 /* FirstViewController.swift in Sources */,
 			);
@@ -454,6 +528,7 @@
 		};
 		37437E921F45731900E60BB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF8F73B1250B95DB0A26E3DC /* Pods-SYSUJwxtTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -469,6 +544,7 @@
 		};
 		37437E931F45731900E60BB6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 839F677C4E17E37A0A9C5CA3 /* Pods-SYSUJwxtTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -501,6 +577,7 @@
 				37437E901F45731900E60BB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		37437E911F45731900E60BB6 /* Build configuration list for PBXNativeTarget "SYSUJwxtTests" */ = {
 			isa = XCConfigurationList;
@@ -509,6 +586,7 @@
 				37437E931F45731900E60BB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
