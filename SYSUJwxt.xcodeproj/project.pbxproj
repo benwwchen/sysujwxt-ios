@@ -99,6 +99,7 @@
 		37437E711F45731900E60BB6 /* SYSUJwxt */ = {
 			isa = PBXGroup;
 			children = (
+				378F1A761F45F11A0007CAC4 /* Models */,
 				37437E721F45731900E60BB6 /* AppDelegate.swift */,
 				37437E741F45731900E60BB6 /* FirstViewController.swift */,
 				37437E9A1F46DF5A00E60BB6 /* CourseTableViewCell.swift */,
@@ -108,7 +109,6 @@
 				37437E7D1F45731900E60BB6 /* LaunchScreen.storyboard */,
 				37437E801F45731900E60BB6 /* Info.plist */,
 				37437E941F45755C00E60BB6 /* JwxtApiClient.swift */,
-				37437E961F457E2B00E60BB6 /* Course.swift */,
 				37437E981F45883600E60BB6 /* LoginViewController.swift */,
 			);
 			path = SYSUJwxt;
@@ -121,6 +121,14 @@
 				37437E8B1F45731900E60BB6 /* Info.plist */,
 			);
 			path = SYSUJwxtTests;
+			sourceTree = "<group>";
+		};
+		378F1A761F45F11A0007CAC4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				37437E961F457E2B00E60BB6 /* Course.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		9E5FFC2EFD9D99CAD0B7EF3A /* Pods */ = {

@@ -48,7 +48,7 @@ class SYSUJwxtTests: XCTestCase {
     //MARK: Test Sync Network
     func testSync() {
         let request = URLRequest(url: URL(string: "https://www.baidu.com/")!)
-        let (data, response) = try! URLSession.shared.synchronousDataTask(with: request)
+        let (data, _) = try! URLSession.shared.synchronousDataTask(with: request)
         print ("\(String(describing: NSString(data: data!, encoding: String.Encoding.utf8.rawValue)))")
     }
     

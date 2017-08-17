@@ -189,13 +189,13 @@ class JwxtApiClient {
     
     func getCourseList(year: Int, term: Int, completion: @escaping (_ success: Bool, _ object: Any?) -> ()) {
         
-        let yearArg = "2015-2016"
+        let yearArg = "\(year)-\(year+1)"
         
-        let request = clientURLRequest(method: "POST", urlString: Paths.BaseUrl + Paths.CourseListPath, data: "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{},parameters:{\"args\": [\"\(yearArg)\", \"\(term)\"], \"responseParam\": \"rs\"}}}", isUemsJwxtApi: true)
+        let request = clientURLRequest(method: "POST", urlString: Paths.BaseUrl + Paths.CourseListPath, data: "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{},parameters:{\"args\": [\"\(term)\", \"\(yearArg)\"], \"responseParam\": \"rs\"}}}", isUemsJwxtApi: true)
         
         customDataTask(request: request) { (success, object) in
             
-            print ("\(String(describing: NSString(data: object as! Data, encoding: String.Encoding.utf8.rawValue)))")
+            //print ("\(String(describing: NSString(data: object as! Data, encoding: String.Encoding.utf8.rawValue)))")
             
             var message: String = Messages.Success
             var isSuccess: Bool = true
@@ -206,7 +206,38 @@ class JwxtApiClient {
                     
                     if let result = string.matchingStrings(regex: "\\{rs:\"(.*)\"\\}").first?[1] {
                         
-                        print("\(result)")
+                        var courses = [Course]()
+                        
+                        if let doc = HTML(html: result, encoding: .utf8) {
+                            print(doc.title)
+                            
+                            // Search for nodes by XPath
+                            for tr in doc.xpath("//tr") {
+                                let tds = tr.xpath("./td")
+                                for (index, td) in tds.enumerated() {
+                                    if td["rowspan"] != nil,
+                                        var contents = td.innerHTML?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "<br>") {
+                                            
+                                        let courseTime = contents[2].replacingOccurrences(of: "节", with: "").components(separatedBy: "-").map({ Int($0)! })
+                                        
+                                        var offset = 0
+                                        if tds.count < 8 {
+                                            for course in courses {
+                                                if course.day <= index + offset &&
+                                                    course.startTime < courseTime[0] &&
+                                                    course.endTime >= courseTime[0] {
+                                                    offset += 1
+                                                }
+                                            }
+                                        }
+                                        
+                                        courses.append(Course.init(name: contents[0], location: contents[1], day: index + offset, startTime: courseTime[0], endTime: courseTime[1], duration: contents[3]))
+                                    }
+                                }
+                            }
+                        }
+                        
+                        print("\(String(describing: courses))")
                         
                     } else {
                         throw JwxtApiError.badResponse
@@ -228,9 +259,9 @@ class JwxtApiClient {
     
     func getScoreList(year: Int, term: Int, completion: @escaping (_ success: Bool, _ object: Any?) -> ()) {
         
-        let yearArg = "2015-2016"
+        let yearArg = "\(year)-\(year+1)"
         
-        let request = clientURLRequest(method: "POST", urlString: Paths.BaseUrl + Paths.ScoreListPath, data: "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{kccjStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"kccjStore\",pageNumber:1,pageSize:10,recordCount:0,rowSetName:\"pojo_com.neusoft.education.sysu.xscj.xscjcx.model.KccjModel\",order:\"t.xn, t.xq, t.kch, t.bzw\"}},parameters:{\"kccjStore-params\": [{\"name\": \"Filter_t.pylbm_0.7607312996540416\", \"type\": \"String\", \"value\": \"'01'\", \"condition\": \" = \", \"property\": \"t.pylbm\"}, {\"name\": \"Filter_t.xn_0.7704413492958447\", \"type\": \"String\", \"value\": \"\(yearArg)\", \"condition\": \" = \", \"property\": \"t.xn\"}, {\"name\": \"Filter_t.xq_0.40025491171181043\", \"type\": \"String\", \"value\": \"\(term)\", \"condition\": \" = \", \"property\": \"t.xq\"}], \"args\": [\"student\"]}}}", isUemsJwxtApi: true)
+        let request = clientURLRequest(method: "POST", urlString: Paths.BaseUrl + Paths.ScoreListPath, data: "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{kccjStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"kccjStore\",pageNumber:1,pageSize:10,recordCount:0,rowSetName:\"pojo_com.neusoft.education.sysu.xscj.xscjcx.model.KccjModel\",order:\"t.xn, t.xq, t.kch, t.bzw\"}},parameters:{\"kccjStore-params\": [{\"name\": \"Filter_t.pylbm_0.7607312996540416\", \"type\": \"String\", \"value\": \"'01'\", \"condition\": \" = \", \"property\": \"t.pylbm\"}, {\"name\": \"Filter_t.xn_0.7704413492958447\", \"type\": \"String\", \"value\": \"'\(yearArg)'\", \"condition\": \" = \", \"property\": \"t.xn\"}, {\"name\": \"Filter_t.xq_0.40025491171181043\", \"type\": \"String\", \"value\": \"'\(term)'\", \"condition\": \" = \", \"property\": \"t.xq\"}], \"args\": [\"student\"]}}}", isUemsJwxtApi: true)
         
         customDataTask(request: request) { (success, object) in
             

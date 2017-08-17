@@ -15,16 +15,16 @@ class Course {
     var name: String
     var location: String
     var day: Int
+    var duration: String
     
-    // the 3 properties below are in units of classes
+    // the 2 properties below are in units of classes
     var startTime: Int
     var endTime: Int
-    var duration: Int
     
     
     //MARK: Initialization
     
-    init(name: String, location: String, day: Int, startTime: Int, endTime: Int, duration: Int) {
+    init(name: String, location: String, day: Int, startTime: Int, endTime: Int, duration: String) {
         self.name = name
         self.location = location
         self.day = day
