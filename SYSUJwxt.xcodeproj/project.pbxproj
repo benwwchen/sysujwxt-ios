@@ -14,6 +14,7 @@
 		37437E7C1F45731900E60BB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37437E7B1F45731900E60BB6 /* Assets.xcassets */; };
 		37437E7F1F45731900E60BB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37437E7D1F45731900E60BB6 /* LaunchScreen.storyboard */; };
 		37437E8A1F45731900E60BB6 /* SYSUJwxtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E891F45731900E60BB6 /* SYSUJwxtTests.swift */; };
+		9C3AD3DD39EBC3671008E11C /* Pods_SYSUJwxt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6F04DC217E695ED310F937F /* Pods_SYSUJwxt.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,9 @@
 		37437E851F45731900E60BB6 /* SYSUJwxtTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SYSUJwxtTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37437E891F45731900E60BB6 /* SYSUJwxtTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYSUJwxtTests.swift; sourceTree = "<group>"; };
 		37437E8B1F45731900E60BB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8899B47F795DBCE47CA5D79E /* Pods-SYSUJwxt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYSUJwxt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SYSUJwxt/Pods-SYSUJwxt.debug.xcconfig"; sourceTree = "<group>"; };
+		9421CEAFCBA497AC77038348 /* Pods-SYSUJwxt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYSUJwxt.release.xcconfig"; path = "Pods/Target Support Files/Pods-SYSUJwxt/Pods-SYSUJwxt.release.xcconfig"; sourceTree = "<group>"; };
+		A6F04DC217E695ED310F937F /* Pods_SYSUJwxt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SYSUJwxt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C3AD3DD39EBC3671008E11C /* Pods_SYSUJwxt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +69,8 @@
 				37437E711F45731900E60BB6 /* SYSUJwxt */,
 				37437E881F45731900E60BB6 /* SYSUJwxtTests */,
 				37437E701F45731900E60BB6 /* Products */,
+				9E5FFC2EFD9D99CAD0B7EF3A /* Pods */,
+				A8D42549C08FEB24B5C633E7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +106,23 @@
 			path = SYSUJwxtTests;
 			sourceTree = "<group>";
 		};
+		9E5FFC2EFD9D99CAD0B7EF3A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8899B47F795DBCE47CA5D79E /* Pods-SYSUJwxt.debug.xcconfig */,
+				9421CEAFCBA497AC77038348 /* Pods-SYSUJwxt.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A8D42549C08FEB24B5C633E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A6F04DC217E695ED310F937F /* Pods_SYSUJwxt.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,9 +130,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 37437E8E1F45731900E60BB6 /* Build configuration list for PBXNativeTarget "SYSUJwxt" */;
 			buildPhases = (
+				73011812E9B57E751B356553 /* [CP] Check Pods Manifest.lock */,
 				37437E6B1F45731900E60BB6 /* Sources */,
 				37437E6C1F45731900E60BB6 /* Frameworks */,
 				37437E6D1F45731900E60BB6 /* Resources */,
+				7C215FCD1670F15B296947D8 /* [CP] Embed Pods Frameworks */,
+				7EBD281CB2CE4AA2489C15BE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -198,6 +225,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		73011812E9B57E751B356553 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SYSUJwxt-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C215FCD1670F15B296947D8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SYSUJwxt/Pods-SYSUJwxt-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kanna.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SYSUJwxt/Pods-SYSUJwxt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7EBD281CB2CE4AA2489C15BE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SYSUJwxt/Pods-SYSUJwxt-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		37437E6B1F45731900E60BB6 /* Sources */ = {
@@ -345,6 +426,7 @@
 		};
 		37437E8F1F45731900E60BB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8899B47F795DBCE47CA5D79E /* Pods-SYSUJwxt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = L28682ZS4N;
@@ -358,6 +440,7 @@
 		};
 		37437E901F45731900E60BB6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9421CEAFCBA497AC77038348 /* Pods-SYSUJwxt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = L28682ZS4N;

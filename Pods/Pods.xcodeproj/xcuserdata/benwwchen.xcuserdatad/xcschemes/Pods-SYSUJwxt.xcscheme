@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0830"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "37437E6E1F45731900E60BB6"
-               BuildableName = "SYSUJwxt.app"
-               BlueprintName = "SYSUJwxt"
-               ReferencedContainer = "container:SYSUJwxt.xcodeproj">
+               BlueprintIdentifier = "CA98B13386B3D552C51F5928F6B43DFE"
+               BuildableName = "Pods_SYSUJwxt.framework"
+               BlueprintName = "Pods-SYSUJwxt"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "37437E841F45731900E60BB6"
-               BuildableName = "SYSUJwxtTests.xctest"
-               BlueprintName = "SYSUJwxtTests"
-               ReferencedContainer = "container:SYSUJwxt.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "37437E6E1F45731900E60BB6"
-            BuildableName = "SYSUJwxt.app"
-            BlueprintName = "SYSUJwxt"
-            ReferencedContainer = "container:SYSUJwxt.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -61,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "37437E6E1F45731900E60BB6"
-            BuildableName = "SYSUJwxt.app"
-            BlueprintName = "SYSUJwxt"
-            ReferencedContainer = "container:SYSUJwxt.xcodeproj">
+            BlueprintIdentifier = "CA98B13386B3D552C51F5928F6B43DFE"
+            BuildableName = "Pods_SYSUJwxt.framework"
+            BlueprintName = "Pods-SYSUJwxt"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -80,16 +60,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "37437E6E1F45731900E60BB6"
-            BuildableName = "SYSUJwxt.app"
-            BlueprintName = "SYSUJwxt"
-            ReferencedContainer = "container:SYSUJwxt.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
