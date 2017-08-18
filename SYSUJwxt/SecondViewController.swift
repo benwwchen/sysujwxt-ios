@@ -10,9 +10,21 @@ import UIKit
 
 class SecondViewController: UIViewController {
 
+    @IBOutlet weak var detailLabel: UILabel!
+    
+    var jwxt = JwxtApiClient.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        jwxt.getScoreList(year: 2016, term: 2) { (success, object) in
+            if success {
+                
+            }
+            DispatchQueue.main.async {
+                self.detailLabel.text = object as? String
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -101,6 +101,7 @@
 			children = (
 				378F1A761F45F11A0007CAC4 /* Models */,
 				37437E721F45731900E60BB6 /* AppDelegate.swift */,
+				37437E981F45883600E60BB6 /* LoginViewController.swift */,
 				37437E741F45731900E60BB6 /* FirstViewController.swift */,
 				37437E9A1F46DF5A00E60BB6 /* CourseTableViewCell.swift */,
 				37437E761F45731900E60BB6 /* SecondViewController.swift */,
@@ -109,7 +110,6 @@
 				37437E7D1F45731900E60BB6 /* LaunchScreen.storyboard */,
 				37437E801F45731900E60BB6 /* Info.plist */,
 				37437E941F45755C00E60BB6 /* JwxtApiClient.swift */,
-				37437E981F45883600E60BB6 /* LoginViewController.swift */,
 			);
 			path = SYSUJwxt;
 			sourceTree = "<group>";

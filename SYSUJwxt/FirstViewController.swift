@@ -20,9 +20,22 @@ class FirstViewController: UIViewController,
     // MARK: Methods
     func checkLogin() {
         if !jwxt.isLogin {
+            // present the loginViewController
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
             self.present(controller, animated: true, completion: nil)
+        }
+    }
+    
+    func loadData() {
+        jwxt.getCourseList(year: 2016, term: 1) { (success, object) in
+            if success, let courses = object as? [Course] {
+                self.courses.removeAll()
+                self.courses.append(contentsOf: courses)
+                DispatchQueue.main.async {
+                    self.coursesTableView.reloadData()
+                }
+            }
         }
     }
     
@@ -57,20 +70,13 @@ class FirstViewController: UIViewController,
     
     // MARK: Actions
     @IBAction func unwindToMainViewController(sender: UIStoryboardSegue) {
-        jwxt.getCourseList(year: 2016, term: 1) { (success, object) in
-            if success, let courses = object as? [Course] {
-                self.courses.removeAll()
-                self.courses.append(contentsOf: courses)
-                DispatchQueue.main.async {
-                    self.coursesTableView.reloadData()
-                }
-            }
-        }
+        loadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkLogin()
+        //checkLogin()
+        loadData()
         coursesTableView.dataSource = self
         coursesTableView.delegate = self
     }

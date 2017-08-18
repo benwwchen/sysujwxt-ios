@@ -51,7 +51,9 @@ class JwxtApiClient {
     
     //MARK: Initialization
     
-    private init() {}
+    private init() {
+        _ = getSavedPassword()
+    }
     
     // MARK: Shared Instance
     
@@ -163,6 +165,7 @@ class JwxtApiClient {
                         self.grade = Int(result.components(separatedBy: ",")[1])!
                         self.schoolId = result.components(separatedBy: ",")[2]
                         self.isLogin = true
+                        self.savePassword()
                         
                     } else {
                         throw JwxtApiError.badResponse
@@ -275,8 +278,9 @@ class JwxtApiClient {
                 
                 if success, let string = String(data: object as! Data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                     
-                    if let result = string.matchingStrings(regex: "\\{primary:\"(.*)\"\\}").first?[1] {
+                    if let result = string.matchingStrings(regex: "\\{primary:\\[(.*)\\]\\}").first?[1] {
                         
+                        message = result
                         print("\(result)")
                         
                     } else {
@@ -398,6 +402,54 @@ class JwxtApiClient {
         request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36", forHTTPHeaderField: "User-Agent")
         
         return request
+    }
+    
+    // MARK: Session Persist
+    func savePassword() {
+        // Saving netId into UserDefaults
+        UserDefaults.standard.set(self.netId, forKey: "netId")
+        // Saving password into Keychain
+        let passwordData: NSData = NSKeyedArchiver.archivedData(withRootObject: self.password) as NSData
+        let userAccount = self.netId
+        let identifier = "sysujwxt"
+        let keychainQuery: [NSString: NSObject] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccount: userAccount as NSObject,
+            kSecAttrService: identifier as NSObject,
+            kSecValueData: passwordData]
+        SecItemDelete(keychainQuery as CFDictionary) //Trying to delete the item from Keychaing just in case it already exists there
+        let status: OSStatus = SecItemAdd(keychainQuery as CFDictionary, nil)
+        if (status == errSecSuccess) {
+            print("Cookies succesfully saved into Keychain")
+        }
+    }
+    
+    func getSavedPassword() -> Bool {
+        // Getting netId from UserDefaults
+        guard let netId = UserDefaults.standard.string(forKey: "netId") else {
+            return false
+        }
+        self.netId = netId
+        // Getting password from Keychain
+        let identifier = "sysujwxt"
+        let keychainQueryForPassword: [NSString: NSObject] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: identifier as NSObject,
+            kSecAttrAccount: self.netId as NSObject,
+            kSecReturnData: kCFBooleanTrue,
+            kSecMatchLimit: kSecMatchLimitOne]
+        var rawResultForPassword: AnyObject?
+        let status: OSStatus = SecItemCopyMatching(keychainQueryForPassword as CFDictionary, &rawResultForPassword)
+        if (status == errSecSuccess) {
+            let retrievedData = rawResultForPassword as? NSData
+            if let unwrappedData = retrievedData {
+                if let password = NSKeyedUnarchiver.unarchiveObject(with: unwrappedData as Data) as? String {
+                    self.password = password
+                    return true
+                }
+            }
+        }
+        return false
     }
     
 }

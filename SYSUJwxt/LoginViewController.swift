@@ -13,6 +13,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var netIdTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     // MARK: Properties
     var jwxt = JwxtApiClient.shared
@@ -20,6 +22,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if jwxt.getSavedPassword() {
+            // session saved before, check if still valid
+            netIdTextField.setView(hidden: true)
+            passwordTextField.setView(hidden: true)
+            loginButton.isHidden = true
+            loadingIndicator.startAnimating()
+            jwxt.login(completion: { (success, message) in
+                if success {
+                    self.continueToMainVC()
+                } else {
+                    self.netIdTextField.setView(hidden: false)
+                    self.passwordTextField.setView(hidden: false)
+                    self.loginButton.setView(hidden: false)
+                    self.loadingIndicator.stopAnimating()
+                }
+            })
+        }
         // Handle the text field’s user input through delegate callbacks.
         netIdTextField.delegate = self
     }
@@ -56,18 +75,50 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         jwxt.password = password
         jwxt.login { (success, message) in
             if success {
-                self.performSegue(withIdentifier: "unwindSegueToMain", sender: self)
+                self.continueToMainVC()
             }
         }
     
     }
     
     // MARK: - Navigation
+    
+    func continueToMainVC() {
+        if self.isBeingPresented {
+            // unwind to MainViewController
+            self.performSegue(withIdentifier: "unwindSegueToMain", sender: self)
+        } else {
+            // present the MainViewController
+            self.performSegue(withIdentifier: "segueToMainAfterLogin", sender: self)
+        }
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        
     }
-    
 
+}
+
+extension UIViewController {
+    var isModal: Bool {
+        if let index = navigationController?.viewControllers.index(of: self), index > 0 {
+            return false
+        } else if presentingViewController != nil {
+            return true
+        } else if navigationController?.presentingViewController?.presentedViewController == navigationController  {
+            return true
+        } else if tabBarController?.presentingViewController is UITabBarController {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+extension UIView {
+    func setView(hidden: Bool) {
+        UIView.transition(with: self, duration: 0.5, options: .transitionCrossDissolve, animations: { _ in
+            self.isHidden = hidden
+        }, completion: nil)
+    }
 }

@@ -16,6 +16,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+//        // check if the user has logged in and decide the initial
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        
+//        if JwxtApiClient.shared.isLogin {
+//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController")
+//            self.window?.rootViewController = initialViewController
+//        } else {
+//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+//            self.window?.rootViewController = initialViewController
+//        }
+//        
+//        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
