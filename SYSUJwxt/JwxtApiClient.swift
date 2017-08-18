@@ -17,6 +17,7 @@ class JwxtApiClient {
     var studentNumber: Int = 0
     var grade: Int = 0
     var schoolId: String = ""
+    var isLogin: Bool = false
     
     let session = URLSession.shared
     
@@ -50,16 +51,11 @@ class JwxtApiClient {
     
     //MARK: Initialization
     
-    init?(netId: String, password: String) {
-        
-        guard !netId.isEmpty, !password.isEmpty else {
-            return nil
-        }
-        
-        self.netId = netId
-        self.password = password
-        
-    }
+    private init() {}
+    
+    // MARK: Shared Instance
+    
+    static let shared = JwxtApiClient()
     
     //MARK: Methods
     
@@ -166,6 +162,7 @@ class JwxtApiClient {
                         self.studentNumber = Int(result.components(separatedBy: ",")[0])!
                         self.grade = Int(result.components(separatedBy: ",")[1])!
                         self.schoolId = result.components(separatedBy: ",")[2]
+                        self.isLogin = true
                         
                     } else {
                         throw JwxtApiError.badResponse
@@ -197,6 +194,7 @@ class JwxtApiClient {
             
             //print ("\(String(describing: NSString(data: object as! Data, encoding: String.Encoding.utf8.rawValue)))")
             
+            var courses = [Course]()
             var message: String = Messages.Success
             var isSuccess: Bool = true
             
@@ -205,8 +203,6 @@ class JwxtApiClient {
                 if success, let string = String(data: object as! Data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                     
                     if let result = string.matchingStrings(regex: "\\{rs:\"(.*)\"\\}").first?[1] {
-                        
-                        var courses = [Course]()
                         
                         if let doc = HTML(html: result, encoding: .utf8) {
                             print(doc.title)
@@ -217,7 +213,7 @@ class JwxtApiClient {
                                 for (index, td) in tds.enumerated() {
                                     if td["rowspan"] != nil,
                                         var contents = td.innerHTML?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "<br>") {
-                                            
+                                        
                                         let courseTime = contents[2].replacingOccurrences(of: "节", with: "").components(separatedBy: "-").map({ Int($0)! })
                                         
                                         var offset = 0
@@ -253,7 +249,12 @@ class JwxtApiClient {
                 
             }
             
-            completion(isSuccess, message)
+            if isSuccess {
+                completion(isSuccess, courses)
+            } else {
+                completion(isSuccess, message)
+            }
+            
         }
     }
     

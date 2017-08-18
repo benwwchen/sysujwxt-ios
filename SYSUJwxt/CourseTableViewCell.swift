@@ -10,6 +10,15 @@ import UIKit
 
 class CourseTableViewCell: UITableViewCell {
 
+    //MARK: Properties
+    @IBOutlet weak var courseNameLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
