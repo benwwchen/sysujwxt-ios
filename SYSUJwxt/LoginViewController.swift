@@ -8,12 +8,17 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var netIdTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        // Handle the text field’s user input through delegate callbacks.
+        netIdTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,6 +26,23 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Hide the keyboard
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == netIdTextField {
+            passwordTextField.becomeFirstResponder()
+        }
+    }
+    
+    // MARK: Actions
+    @IBAction func loginButtonPressed(_ sender: UIButton) {
+        
+    }
 
     /*
     // MARK: - Navigation
