@@ -271,6 +271,7 @@ class JwxtApiClient {
             
             print ("\(String(describing: NSString(data: object as! Data, encoding: String.Encoding.utf8.rawValue)))")
             
+            var grades = [Grade]()
             var message: String = Messages.Success
             var isSuccess: Bool = true
             
@@ -278,13 +279,22 @@ class JwxtApiClient {
                 
                 if success, let string = String(data: object as! Data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                     
-                    if let result = string.matchingStrings(regex: "\\{primary:\\[(.*)\\]\\}").first?[1] {
-                        
-                        message = result
-                        print("\(result)")
-                        
-                    } else {
+                    guard let resultData = string.matchingStrings(regex: "\\{primary:(\\[.*\\])\\}").first?[1].data(using: .utf8) else {
                         throw JwxtApiError.badResponse
+                    }
+                    
+                    // now we got the correct JSON format
+                    guard let json = (try? JSONSerialization.jsonObject(with: resultData, options: [])) as? [Any] else {
+                        throw JwxtApiError.badResponse
+                    }
+                    
+                    print("\(json)")
+                    
+                    for object in json {
+                        if let dict = object as? [String : Any],
+                            let grade = Grade.init(json: dict) {
+                            grades.append(grade)
+                        }
                     }
                     
                 }
@@ -297,7 +307,11 @@ class JwxtApiClient {
                 
             }
             
-            completion(isSuccess, message)
+            if isSuccess {
+                completion(isSuccess, grades)
+            } else {
+                completion(isSuccess, message)
+            }
         }
     }
     

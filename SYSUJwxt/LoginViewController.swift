@@ -22,6 +22,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadingIndicator.hidesWhenStopped = true
+        
         if jwxt.getSavedPassword() {
             // session saved before, check if still valid
             netIdTextField.setView(hidden: true)

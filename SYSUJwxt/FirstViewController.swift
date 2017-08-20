@@ -76,9 +76,11 @@ class FirstViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         //checkLogin()
-        loadData()
+        
         coursesTableView.dataSource = self
         coursesTableView.delegate = self
+        
+        loadData()
     }
 
     override func didReceiveMemoryWarning() {

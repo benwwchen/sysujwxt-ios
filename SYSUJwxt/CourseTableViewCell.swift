@@ -17,8 +17,6 @@ class CourseTableViewCell: UITableViewCell {
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
