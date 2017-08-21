@@ -15,6 +15,13 @@ class Course {
     var name: String
     var location: String
     var day: Int
+    
+    var dayString: String? {
+        get {
+            return DayOfWeek.fromNumber(number: day)?.description
+        }
+    }
+    
     var duration: String
     
     // the 2 properties below are in units of classes

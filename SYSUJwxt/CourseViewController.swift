@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  CourseViewController.swift
 //  SYSUJwxt
 //
 //  Created by benwwchen on 2017/8/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController,
+class CourseViewController: UIViewController,
     UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var coursesTableView: UITableView!
@@ -32,6 +32,7 @@ class FirstViewController: UIViewController,
             if success, let courses = object as? [Course] {
                 self.courses.removeAll()
                 self.courses.append(contentsOf: courses)
+                self.courses.sort(by: { $0.day < $1.day })
                 DispatchQueue.main.async {
                     self.coursesTableView.reloadData()
                 }
@@ -61,15 +62,17 @@ class FirstViewController: UIViewController,
         
         cell.courseNameLabel.text = course.name
         cell.locationLabel.text = course.location
-        cell.timeLabel.text = "\(course.startTime)-\(course.endTime)"
-        cell.dayLabel.text = "\(course.day)"
-        cell.durationLabel.text = course.duration
+        
+        if let dayString = course.dayString {
+            cell.timeLabel.text = "\(dayString)  \(course.startTime)-\(course.endTime)  \(course.duration)"
+        }
         
         return cell
     }
     
     // MARK: Actions
     @IBAction func unwindToMainViewController(sender: UIStoryboardSegue) {
+        print("unwinding")
         loadData()
     }
     

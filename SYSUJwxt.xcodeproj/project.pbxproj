@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		372543271F495BE80004BB36 /* GradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372543261F495BE80004BB36 /* GradeTableViewCell.swift */; };
 		37437E731F45731900E60BB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E721F45731900E60BB6 /* AppDelegate.swift */; };
-		37437E751F45731900E60BB6 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E741F45731900E60BB6 /* FirstViewController.swift */; };
-		37437E771F45731900E60BB6 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E761F45731900E60BB6 /* SecondViewController.swift */; };
+		37437E751F45731900E60BB6 /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E741F45731900E60BB6 /* CourseViewController.swift */; };
+		37437E771F45731900E60BB6 /* GradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E761F45731900E60BB6 /* GradeViewController.swift */; };
 		37437E7A1F45731900E60BB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37437E781F45731900E60BB6 /* Main.storyboard */; };
 		37437E7C1F45731900E60BB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37437E7B1F45731900E60BB6 /* Assets.xcassets */; };
 		37437E7F1F45731900E60BB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37437E7D1F45731900E60BB6 /* LaunchScreen.storyboard */; };
@@ -20,6 +20,10 @@
 		37437E991F45883600E60BB6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E981F45883600E60BB6 /* LoginViewController.swift */; };
 		37437E9B1F46DF5A00E60BB6 /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E9A1F46DF5A00E60BB6 /* CourseTableViewCell.swift */; };
 		37A7F0B41F49500200BBEABE /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A7F0B31F49500200BBEABE /* Grade.swift */; };
+		37BADCB11F4AD5D400A74CCB /* GPATableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BADCB01F4AD5D400A74CCB /* GPATableViewController.swift */; };
+		37BADCB31F4ADFDF00A74CCB /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BADCB21F4ADFDF00A74CCB /* DayOfWeek.swift */; };
+		37BADCB71F4AFB2E00A74CCB /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BADCB61F4AFB2E00A74CCB /* FilterViewController.swift */; };
+		37BADCB91F4AFB7A00A74CCB /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BADCB81F4AFB7A00A74CCB /* FilterTableViewController.swift */; };
 		9C3AD3DD39EBC3671008E11C /* Pods_SYSUJwxt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6F04DC217E695ED310F937F /* Pods_SYSUJwxt.framework */; };
 		DA66415702A00A8187A36665 /* Pods_SYSUJwxtTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AB2205F0CCDDE8E223A263 /* Pods_SYSUJwxtTests.framework */; };
 /* End PBXBuildFile section */
@@ -39,8 +43,8 @@
 		372543261F495BE80004BB36 /* GradeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradeTableViewCell.swift; sourceTree = "<group>"; };
 		37437E6F1F45731900E60BB6 /* SYSUJwxt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SYSUJwxt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37437E721F45731900E60BB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		37437E741F45731900E60BB6 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		37437E761F45731900E60BB6 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		37437E741F45731900E60BB6 /* CourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
+		37437E761F45731900E60BB6 /* GradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeViewController.swift; sourceTree = "<group>"; };
 		37437E791F45731900E60BB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		37437E7B1F45731900E60BB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37437E7E1F45731900E60BB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,6 +57,10 @@
 		37437E981F45883600E60BB6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		37437E9A1F46DF5A00E60BB6 /* CourseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
 		37A7F0B31F49500200BBEABE /* Grade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
+		37BADCB01F4AD5D400A74CCB /* GPATableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPATableViewController.swift; sourceTree = "<group>"; };
+		37BADCB21F4ADFDF00A74CCB /* DayOfWeek.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
+		37BADCB61F4AFB2E00A74CCB /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		37BADCB81F4AFB7A00A74CCB /* FilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
 		839F677C4E17E37A0A9C5CA3 /* Pods-SYSUJwxtTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYSUJwxtTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SYSUJwxtTests/Pods-SYSUJwxtTests.release.xcconfig"; sourceTree = "<group>"; };
 		8899B47F795DBCE47CA5D79E /* Pods-SYSUJwxt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYSUJwxt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SYSUJwxt/Pods-SYSUJwxt.debug.xcconfig"; sourceTree = "<group>"; };
 		9421CEAFCBA497AC77038348 /* Pods-SYSUJwxt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SYSUJwxt.release.xcconfig"; path = "Pods/Target Support Files/Pods-SYSUJwxt/Pods-SYSUJwxt.release.xcconfig"; sourceTree = "<group>"; };
@@ -84,8 +92,11 @@
 			isa = PBXGroup;
 			children = (
 				37437E981F45883600E60BB6 /* LoginViewController.swift */,
-				37437E741F45731900E60BB6 /* FirstViewController.swift */,
-				37437E761F45731900E60BB6 /* SecondViewController.swift */,
+				37437E741F45731900E60BB6 /* CourseViewController.swift */,
+				37437E761F45731900E60BB6 /* GradeViewController.swift */,
+				37BADCB01F4AD5D400A74CCB /* GPATableViewController.swift */,
+				37BADCB61F4AFB2E00A74CCB /* FilterViewController.swift */,
+				37BADCB81F4AFB7A00A74CCB /* FilterTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -131,6 +142,7 @@
 				37437E7D1F45731900E60BB6 /* LaunchScreen.storyboard */,
 				37437E801F45731900E60BB6 /* Info.plist */,
 				37437E941F45755C00E60BB6 /* JwxtApiClient.swift */,
+				37BADCB21F4ADFDF00A74CCB /* DayOfWeek.swift */,
 			);
 			path = SYSUJwxt;
 			sourceTree = "<group>";
@@ -391,12 +403,16 @@
 			files = (
 				37437E991F45883600E60BB6 /* LoginViewController.swift in Sources */,
 				37437E951F45755C00E60BB6 /* JwxtApiClient.swift in Sources */,
+				37BADCB11F4AD5D400A74CCB /* GPATableViewController.swift in Sources */,
 				37A7F0B41F49500200BBEABE /* Grade.swift in Sources */,
-				37437E771F45731900E60BB6 /* SecondViewController.swift in Sources */,
+				37BADCB31F4ADFDF00A74CCB /* DayOfWeek.swift in Sources */,
+				37437E771F45731900E60BB6 /* GradeViewController.swift in Sources */,
+				37BADCB71F4AFB2E00A74CCB /* FilterViewController.swift in Sources */,
 				37437E971F457E2B00E60BB6 /* Course.swift in Sources */,
+				37BADCB91F4AFB7A00A74CCB /* FilterTableViewController.swift in Sources */,
 				372543271F495BE80004BB36 /* GradeTableViewCell.swift in Sources */,
 				37437E731F45731900E60BB6 /* AppDelegate.swift in Sources */,
-				37437E751F45731900E60BB6 /* FirstViewController.swift in Sources */,
+				37437E751F45731900E60BB6 /* CourseViewController.swift in Sources */,
 				37437E9B1F46DF5A00E60BB6 /* CourseTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

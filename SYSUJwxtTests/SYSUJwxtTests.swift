@@ -56,33 +56,43 @@ class SYSUJwxtTests: XCTestCase {
     func testJwxtApis() {
         
         let expect = expectation(description: "result")
+        let jwxt = JwxtApiClient.shared
         
-        if let jwxt = JwxtApiClient(netId: "chenww28", password: "ja6one?T") {
+        if jwxt.getSavedPassword() {
+            // session saved before, check if still valid
             jwxt.login(completion: { (success, message) in
-                
                 if success {
                     print("student no: \(jwxt.studentNumber)")
                     print("grade: \(jwxt.grade)")
                     print("school ID: \(jwxt.schoolId)")
-                }
-                
-                print ("\(String(describing: message))")
-                
-                jwxt.getCourseList(year: 2016, term: 1, completion: { (success, result) in
-                    print("courses: \(result)")
-                    jwxt.getScoreList(year: 2015, term: 1, completion: { (success, result) in
-                        print("scores: \(result)")
-                        jwxt.getGPA(year: 2015, term: 1, completion: { (success, result) in
-                            print("courses: \(result)")
-                            expect.fulfill()
-                        })
+                    
+                    print ("\(String(describing: message))")
+                    
+                    let semaphore = DispatchSemaphore(value: 0)
+                    
+                    jwxt.getGPA(isGetAll: true, completion: { (success, object) in
+                        print("gpas: \(String(describing: object))")
+                        semaphore.signal()
                     })
-                })
-                
+                    
+                    _ = semaphore.wait(timeout: .distantFuture)
+                    
+                    jwxt.getGPA(year: 2016, term: 2, completion: { (success, object) in
+                        print("gpas: \(String(describing: object))")
+                        semaphore.signal()
+                    })
+                    
+                    _ = semaphore.wait(timeout: .distantFuture)
+                    
+                    expect.fulfill()
+                    
+                } else {
+                    XCTAssertNotNil(nil)
+                }
             })
         }
         
-        waitForExpectations(timeout: 100, handler: nil)
+        waitForExpectations(timeout: 200, handler: nil)
         
     }
 }

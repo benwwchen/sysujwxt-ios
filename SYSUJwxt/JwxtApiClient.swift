@@ -315,14 +315,23 @@ class JwxtApiClient {
         }
     }
     
-    func getGPA(year: Int, term: Int, completion: @escaping (_ success: Bool, _ object: Any?) -> ()) {
+    func getGPA(year: Int = 0, term: Int = 0, isGetAll: Bool = false, completion: @escaping (_ success: Bool, _ object: Any?) -> ()) {
         
-        let request = clientURLRequest(method: "POST", urlString: Paths.BaseUrl + Paths.GPAPath, data: "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{allJdStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"allJdStore\",pageNumber:1,pageSize:2147483647,recordCount:0,rowSetName:\"pojo_com.neusoft.education.sysu.djks.ksgl.model.TwoColumnModel\"}},parameters:{\"args\": [\"\(self.studentNumber)\", \"\", \"\", \"\"]}}}", isUemsJwxtApi: true)
+        let data: String
+        
+        if isGetAll {
+            data = "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{allJdStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"allJdStore\",pageNumber:1,pageSize:2147483647,recordCount:0,rowSetName:\"pojo_com.neusoft.education.sysu.djks.ksgl.model.TwoColumnModel\"}},parameters:{\"args\": [\"\(self.studentNumber)\", \"\", \"\", \"\"]}}}"
+        } else {
+            data = "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{jdStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"jdStore\",pageNumber:1,pageSize:0,recordCount:0,rowSetName:\"pojo_com.neusoft.education.sysu.djks.ksgl.model.TwoColumnModel\"}},parameters:{\"args\": [\"\(self.studentNumber)\", \"\(year)\", \"\(term)\", \"\"]}}}"
+        }
+        
+        let request = clientURLRequest(method: "POST", urlString: Paths.BaseUrl + Paths.GPAPath, data: data, isUemsJwxtApi: true)
         
         customDataTask(request: request) { (success, object) in
             
             print ("\(String(describing: NSString(data: object as! Data, encoding: String.Encoding.utf8.rawValue)))")
             
+            var gpas = [String: String]()
             var message: String = Messages.Success
             var isSuccess: Bool = true
             
@@ -330,12 +339,22 @@ class JwxtApiClient {
                 
                 if success, let string = String(data: object as! Data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                     
-                    if let result = string.matchingStrings(regex: "\\{rs:\"(.*)\"\\}").first?[1] {
-                        
-                        print("\(result)")
-                        
-                    } else {
+                    guard let resultData = string.matchingStrings(regex: "\\{primary:(\\[.*\\])\\}").first?[1].data(using: .utf8) else {
                         throw JwxtApiError.badResponse
+                    }
+                    
+                    guard let json = (try? JSONSerialization.jsonObject(with: resultData, options: [])) as? [Any] else {
+                        throw JwxtApiError.badResponse
+                    }
+                        
+                    print("\(json)")
+                        
+                    for object in json {
+                        if let dict = object as? [String : String],
+                            let key = dict["oneColumn"],
+                            let value = dict["twoColumn"] {
+                            gpas[key] = value
+                        }
                     }
                     
                 }
@@ -348,7 +367,11 @@ class JwxtApiClient {
                 
             }
             
-            completion(isSuccess, message)
+            if isSuccess {
+                completion(isSuccess, gpas)
+            } else {
+                completion(isSuccess, message)
+            }
         }
     }
     

@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  GradeViewController.swift
 //  SYSUJwxt
 //
 //  Created by benwwchen on 2017/8/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController,
+class GradeViewController: UIViewController,
     UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var gradesTableView: UITableView!
@@ -59,6 +59,11 @@ class SecondViewController: UIViewController,
         cell.rankingInMajorClassLabel.text = grade.rankingInMajorClass
         
         return cell
+    }
+    
+    @IBAction func unwindToMainViewController(sender: UIStoryboardSegue) {
+        print("unwinding")
+        loadData()
     }
 
     
