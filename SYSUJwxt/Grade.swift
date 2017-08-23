@@ -8,6 +8,13 @@
 
 import Foundation
 
+enum CourseType: Int {
+    case PublicCompulsory = 10
+    case PublicElective = 30
+    case MajorCompulsory = 11
+    case MajorElective = 21
+}
+
 class Grade {
     
     //MARK: Properties
@@ -20,6 +27,7 @@ class Grade {
     var period: Double
     var rankingInTeachingClass: String
     var rankingInMajorClass: String
+    var courseType: CourseType
     
     //MARK: Initialization
     
@@ -35,7 +43,10 @@ class Grade {
             let periodString = json["xs"] as? String,
             let period = Double(periodString),
             let rankingInTeachingClass = json["jxbpm"] as? String,
-            let rankingInMajorClass = json["njzypm"] as? String
+            let rankingInMajorClass = json["njzypm"] as? String,
+            let courseTypeString = json["kclb"] as? String,
+            let courseTypeRaw = Int(courseTypeString),
+            let courseType = CourseType(rawValue: courseTypeRaw)
             else {
                 return nil
         }
@@ -48,6 +59,7 @@ class Grade {
         self.period = period
         self.rankingInTeachingClass = rankingInTeachingClass
         self.rankingInMajorClass = rankingInMajorClass
+        self.courseType = courseType
     }
     
 }

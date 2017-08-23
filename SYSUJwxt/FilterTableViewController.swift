@@ -8,38 +8,104 @@
 
 import UIKit
 
-enum Term: String {
-    case one = "1"
-    case two = "2"
-    case three = "3"
-    case all = "全部"
-    
-    var description: String {
-        get {
-            return self.rawValue
-        }
-    }
-}
+
 
 class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // MARK: Views
+    
+    // year
     var pickerView: UIPickerView?
     @IBOutlet weak var yearTextField: UITextField!
+    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var yearTableViewCell: UITableViewCell!
+    // term
+    @IBOutlet weak var termSegmentedControl: UISegmentedControl!
     
     // MARK: Properties
     
+    // filter name
+    var filterType: String = ""
+
+    // editing
+    var lastSelectedYear: String = SelectTypes.All
+    
     // selected
-    var year: String = "所有"
+    var year: String = SelectTypes.All
+    var term: String = SelectTypes.All
+    var coursesType = [String]()
     
     // choices
     var years = [String]()
-    var term: Term = .all
+    let allCourseTypes = ["公必", "专必", "专选", "公选"]
+    
+    // MARK: Constants
+    struct SelectTypes {
+        static let All = "全部"
+    }
     
     // MARK: Methods
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // load filter data
+        loadFilterData()
+        
+        // setup the picker for year selector
+        initPickerData()
+        initPickerView()
+        
+    }
+    
+    // load saved data
+    func loadFilterData() {
+        if let year = UserDefaults.standard.object(forKey: filterType + ".year") as? String {
+            self.year = year
+        }
+        if let term = UserDefaults.standard.object(forKey: filterType + ".term") as? String {
+            self.term = term
+        }
+        if let coursesType = UserDefaults.standard.object(forKey: filterType + ".courseType") as? [String]  {
+            self.coursesType = coursesType
+        }
+        
+        // populate the data
+        yearLabel.text = year
+        if let termIndex = termIndex(from: term) {
+            termSegmentedControl.selectedSegmentIndex = termIndex
+        }
+        
+        if filterType == "grade" {
+            for i in 1..<tableView.numberOfRows(inSection: 2) {
+                if let cell = tableView.cellForRow(at: IndexPath(row: i, section: 2)),
+                    let labelText = cell.textLabel?.text,
+                    coursesType.contains(labelText) {
+                    cell.accessoryType = .checkmark
+                }
+            }
+            
+            if coursesType.count == 4 {
+                tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.accessoryType = .checkmark
+                let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 2))
+                print ("\(String(describing: cell?.accessoryType))")
+            }
+        }
+    }
+    
+    // year
+    
     func initPickerData() {
-        years = ["所有", "2016-2017", "2015-2016", "2014-2015"]
+        years = [SelectTypes.All]
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
+        if let currentYear = Int(dateFormatter.string(from: Date())) {
+            let entranceYear = JwxtApiClient.shared.grade
+            for year in (entranceYear...currentYear).reversed() {
+                years.append("\(year)-\(year+1)")
+            }
+        }
     }
     
     func initPickerView() {
@@ -50,6 +116,7 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
         newPickerView.showsSelectionIndicator = true
         newPickerView.delegate = self
         newPickerView.dataSource = self
+        newPickerView.selectRow(years.index(of: year)!, inComponent: 0, animated: false)
         
         pickerView = newPickerView
         
@@ -60,21 +127,13 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
         
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(donePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(donePicker))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelPicker))
         
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
-        yearTextField.allowsEditingTextAttributes = false
         yearTextField.inputView = pickerView
         yearTextField.inputAccessoryView = toolBar
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        initPickerData()
-        initPickerView()
         
     }
     
@@ -85,6 +144,7 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         year = years[row]
+        yearLabel.text = year
         yearTextField.text = year
     }
     
@@ -98,11 +158,95 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
     
     func donePicker(sender: UIBarButtonItem) {
         yearTextField.resignFirstResponder()
+        yearTableViewCell.setSelected(false, animated: true)
+    }
+    
+    func cancelPicker(sender: UIBarButtonItem) {
+        yearTextField.resignFirstResponder()
+        yearTableViewCell.setSelected(false, animated: true)
+        
+        year = lastSelectedYear
+        yearTextField.text = year
+        yearLabel.text = year
+    }
+    
+    // term
+    @IBAction func termControlValueChanged(_ sender: UISegmentedControl) {
+        if let title = sender.titleForSegment(at: sender.selectedSegmentIndex) {
+            term = title
+        }
+    }
+    
+    func termIndex(from title: String) -> Int? {
+        if title == "1" || title == "2" || title == "3" {
+            return Int(title)! - 1
+        }
+        if title == SelectTypes.All {
+            return 3
+        }
+        return nil
     }
 
     // MARK: - Table view data source
 
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // show picker for year selection
+        if let cell = tableView.cellForRow(at: indexPath), cell.reuseIdentifier == "yearCell" {
+            lastSelectedYear = year
+            yearTextField.becomeFirstResponder()
+        }
+        
+        // select course type
+        if indexPath.section == 2,
+            let cell = tableView.cellForRow(at: indexPath),
+            let labelText = cell.textLabel?.text {
+                
+            if labelText == SelectTypes.All {
+                
+                var typeToChange = UITableViewCellAccessoryType.none
+                
+                if coursesType.count == 4 {
+                    coursesType.removeAll()
+                } else {
+                    coursesType = allCourseTypes
+                    typeToChange = UITableViewCellAccessoryType.checkmark
+                }
+                
+                for i in 1..<tableView.numberOfRows(inSection: 2) {
+                    tableView.cellForRow(at: IndexPath(row: i, section: 2))?.accessoryType = typeToChange
+                }
+                
+            } else {
+                
+                if !coursesType.contains(labelText) {
+                    cell.accessoryType = .checkmark
+                    coursesType.append(labelText)
+                } else {
+                    cell.accessoryType = .none
+                    coursesType.remove(at: coursesType.index(of: labelText)!)
+                }
+            }
+            
+            if coursesType.count == 4 {
+                tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.accessoryType = .checkmark
+            } else {
+                tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.accessoryType = .none
+            }
+            
+            cell.setSelected(false, animated: true)
+        }
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if filterType == "course" {
+            return 2
+        } else {
+            return 3
+        }
+    }
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)

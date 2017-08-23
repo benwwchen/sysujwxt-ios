@@ -231,12 +231,14 @@ class JwxtApiClient {
                                         }
                                         
                                         courses.append(Course.init(name: contents[0], location: contents[1], day: index + offset, startTime: courseTime[0], endTime: courseTime[1], duration: contents[3]))
+                                        
+                                        print("\(contents)")
                                     }
                                 }
                             }
                         }
                         
-                        print("\(String(describing: courses))")
+                        
                         
                     } else {
                         throw JwxtApiError.badResponse
