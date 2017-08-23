@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        
 //        self.window?.makeKeyAndVisible()
         
+        UIView.appearance().tintColor = UIColor(colorLiteralRed: 30/255.0, green: 148/255.0, blue: 57/255.0, alpha: 1)
+        
         return true
     }
 

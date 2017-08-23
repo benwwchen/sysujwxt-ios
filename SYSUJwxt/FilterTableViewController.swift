@@ -8,34 +8,100 @@
 
 import UIKit
 
-class FilterTableViewController: UITableViewController {
+enum Term: String {
+    case one = "1"
+    case two = "2"
+    case three = "3"
+    case all = "全部"
+    
+    var description: String {
+        get {
+            return self.rawValue
+        }
+    }
+}
+
+class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    // MARK: Views
+    var pickerView: UIPickerView?
+    @IBOutlet weak var yearTextField: UITextField!
+    
+    // MARK: Properties
+    
+    // selected
+    var year: String = "所有"
+    
+    // choices
+    var years = [String]()
+    var term: Term = .all
+    
+    // MARK: Methods
+    
+    func initPickerData() {
+        years = ["所有", "2016-2017", "2015-2016", "2014-2015"]
+    }
+    
+    func initPickerView() {
+        let newPickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height / 3.0))
+        
+        newPickerView.backgroundColor = .white
+        
+        newPickerView.showsSelectionIndicator = true
+        newPickerView.delegate = self
+        newPickerView.dataSource = self
+        
+        pickerView = newPickerView
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(donePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(donePicker))
+        
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        yearTextField.allowsEditingTextAttributes = false
+        yearTextField.inputView = pickerView
+        yearTextField.inputAccessoryView = toolBar
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        initPickerData()
+        initPickerView()
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: - Picker view data source
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return years.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        year = years[row]
+        yearTextField.text = year
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return years[row]
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func donePicker(sender: UIBarButtonItem) {
+        yearTextField.resignFirstResponder()
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
