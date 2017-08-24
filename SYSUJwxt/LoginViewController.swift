@@ -15,34 +15,78 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var loginFormStackView: UIStackView!
+    @IBOutlet weak var loadingStackView: UIStackView!
+    
     
     // MARK: Properties
     var jwxt = JwxtApiClient.shared
+    var isSavePassword = UserDefaults.standard.bool(forKey: "isSavePassword")
+    
+    
+    // MARK: Methods
+    
+    func tryLogin(netId: String, password: String) {
+        // try login
+        loginFormStackView.setView(hidden: true)
+        loadingStackView.setView(hidden: false)
+        loadingIndicator.startAnimating()
+        jwxt.netId = netId
+        jwxt.password = password
+        jwxt.login { (success, message) in
+            if success {
+                UserDefaults.standard.set(self.isSavePassword, forKey: "isSavePassword")
+                self.continueToMainVC()
+            } else {
+                self.loginFormStackView.setView(hidden: false)
+                self.loadingIndicator.stopAnimating()
+                self.loadingStackView.setView(hidden: true)
+            }
+        }
+    }
+    
+    func tryAutoLogin() {
+        if jwxt.getSavedPassword() {
+            // session saved before, check if still valid
+            loginFormStackView.setView(hidden: true)
+            //loadingIndicator.startAnimating()
+            jwxt.login(completion: { (success, message) in
+                if success {
+                    self.continueToMainVC()
+                } else {
+                    self.loginFormStackView.setView(hidden: false)
+                    self.loadingIndicator.stopAnimating()
+                }
+            })
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadingIndicator.hidesWhenStopped = true
+        loadingStackView.setView(hidden: true)
         
-        if jwxt.getSavedPassword() {
-            // session saved before, check if still valid
-            netIdTextField.setView(hidden: true)
-            passwordTextField.setView(hidden: true)
-            loginButton.isHidden = true
-            loadingIndicator.startAnimating()
-            jwxt.login(completion: { (success, message) in
-                if success {
-                    self.continueToMainVC()
-                } else {
-                    self.netIdTextField.setView(hidden: false)
-                    self.passwordTextField.setView(hidden: false)
-                    self.loginButton.setView(hidden: false)
-                    self.loadingIndicator.stopAnimating()
-                }
-            })
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50))
+        toolbar.barStyle = .default
+        toolbar.isTranslucent = true
+        toolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(doneInput))]
+        toolbar.sizeToFit()
+        passwordTextField.inputAccessoryView = toolbar
+        
+        if isSavePassword {
+            tryAutoLogin()
         }
+        
         // Handle the text field’s user input through delegate callbacks.
         netIdTextField.delegate = self
+        passwordTextField.delegate = self
+    }
+    
+    func doneInput(sender: UIBarButtonItem) {
+        passwordTextField.resignFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,14 +117,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        jwxt.netId = netId
-        jwxt.password = password
-        jwxt.login { (success, message) in
-            if success {
-                self.continueToMainVC()
-            }
-        }
+        tryLogin(netId: netId, password: password)
+    }
     
+    @IBAction func savePasswordSwitchValueChanged(_ sender: UISwitch) {
+        
+        isSavePassword = sender.isOn
+        
     }
     
     // MARK: - Navigation

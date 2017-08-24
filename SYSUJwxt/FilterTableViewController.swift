@@ -8,7 +8,11 @@
 
 import UIKit
 
-
+enum FilterType: String {
+    case course = "course"
+    case grade = "grade"
+    case none = ""
+}
 
 class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -25,7 +29,7 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
     // MARK: Properties
     
     // filter name
-    var filterType: String = ""
+    var filterType: FilterType = .none
 
     // editing
     var lastSelectedYear: String = SelectTypes.All
@@ -60,23 +64,27 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
     
     // load saved data
     func loadFilterData() {
-        if let year = UserDefaults.standard.object(forKey: filterType + ".year") as? String {
+        if let year = UserDefaults.standard.object(forKey: "\(filterType.rawValue).year") as? String {
             self.year = year
         }
-        if let term = UserDefaults.standard.object(forKey: filterType + ".term") as? String {
+        if let term = UserDefaults.standard.object(forKey: "\(filterType.rawValue).term") as? String {
             self.term = term
         }
-        if let coursesType = UserDefaults.standard.object(forKey: filterType + ".courseType") as? [String]  {
+        if let coursesType = UserDefaults.standard.object(forKey: "\(filterType.rawValue).courseType") as? [String]  {
             self.coursesType = coursesType
         }
         
         // populate the data
+        if filterType == .course {
+            // no "all" option for courses
+            termSegmentedControl.removeSegment(at: 3, animated: false)
+        }
         yearLabel.text = year
         if let termIndex = termIndex(from: term) {
             termSegmentedControl.selectedSegmentIndex = termIndex
         }
         
-        if filterType == "grade" {
+        if filterType == .grade {
             for i in 1..<tableView.numberOfRows(inSection: 2) {
                 if let cell = tableView.cellForRow(at: IndexPath(row: i, section: 2)),
                     let labelText = cell.textLabel?.text,
@@ -93,10 +101,15 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
         }
     }
     
-    // year
+    // year picker
     
     func initPickerData() {
         years = [SelectTypes.All]
+        
+        if filterType == .course {
+            // no "all" option for courses
+            years.removeAll()
+        }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy"
@@ -121,7 +134,7 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
         pickerView = newPickerView
         
         let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.default
+        toolBar.barStyle = .default
         toolBar.isTranslucent = true
         toolBar.sizeToFit()
         
@@ -240,7 +253,7 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        if filterType == "course" {
+        if filterType == .course {
             return 2
         } else {
             return 3

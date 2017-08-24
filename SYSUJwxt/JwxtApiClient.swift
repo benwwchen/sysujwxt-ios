@@ -208,7 +208,7 @@ class JwxtApiClient {
                     if let result = string.matchingStrings(regex: "\\{rs:\"(.*)\"\\}").first?[1] {
                         
                         if let doc = HTML(html: result, encoding: .utf8) {
-                            print(doc.title)
+                            print(doc.title ?? "(no title)")
                             
                             // Search for nodes by XPath
                             for tr in doc.xpath("//tr") {

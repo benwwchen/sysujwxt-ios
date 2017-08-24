@@ -11,7 +11,7 @@ import os.log
 
 class FilterViewController: UIViewController {
     
-    var filterType: String = ""
+    var filterType: FilterType = .none
     
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
@@ -50,9 +50,9 @@ class FilterViewController: UIViewController {
                 let term = containerViewController?.term,
                 let coursesType = containerViewController?.coursesType {
                 
-                    UserDefaults.standard.set(year, forKey: filterType + ".year")
-                    UserDefaults.standard.set(term, forKey: filterType + ".term")
-                    UserDefaults.standard.set(coursesType, forKey: filterType + ".courseType")
+                    UserDefaults.standard.set(year, forKey: "\(filterType.rawValue).year")
+                    UserDefaults.standard.set(term, forKey: "\(filterType.rawValue).term")
+                    UserDefaults.standard.set(coursesType, forKey: "\(filterType.rawValue).courseType")
                 
             }
         } else {
