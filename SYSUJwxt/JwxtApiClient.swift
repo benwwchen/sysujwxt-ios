@@ -18,6 +18,14 @@ class JwxtApiClient {
     var grade: Int = 0
     var schoolId: String = ""
     var isLogin: Bool = false
+    var isSavePassword: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "isSavePassword")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "isSavePassword")
+        }
+    }
     
     let session = URLSession.shared
     
@@ -52,7 +60,9 @@ class JwxtApiClient {
     //MARK: Initialization
     
     private init() {
-        _ = getSavedPassword()
+        if isSavePassword {
+            _ = getSavedPassword()
+        }
     }
     
     // MARK: Shared Instance
@@ -68,50 +78,48 @@ class JwxtApiClient {
         
         customDataTask(request: request) { (success, object) in
             
-            // parse data and do real login in background
-            DispatchQueue.global(qos: .userInitiated).async {
-
-                if success {
-                    // 302 redirected to
-                    // https://cas.sysu.edu.cn/cas/login?service=http%3A%2F%2Fuems.sysu.edu.cn%2Fjwxt%2FcasLogin
+            // parse data and do real login
+            if success {
+                // 302 redirected to
+                // https://cas.sysu.edu.cn/cas/login?service=http%3A%2F%2Fuems.sysu.edu.cn%2Fjwxt%2FcasLogin
+                
+                // now get the login form from the html
+                var ltValue: String = ""
+                var executionValue: String = ""
+                var formAction: String = ""
+                
+                if let doc = HTML(html: object as! Data, encoding: String.Encoding.utf8) {
                     
-                    // now get the login form from the html
-                    var ltValue: String = ""
-                    var executionValue: String = ""
-                    var formAction: String = ""
-                    
-                    if let doc = HTML(html: object as! Data, encoding: String.Encoding.utf8) {
-                        
-                        if let lt = doc.xpath("//input[@name='lt']").first?["value"]  {
-                            ltValue = lt
-                        }
-                        
-                        if let execution = doc.xpath("//input[@name='execution']").first?["value"]  {
-                            executionValue = execution
-                        }
-                        
-                        if let action = doc.xpath("//form[@id='fm1']").first?["action"]  {
-                            formAction = action
-                        }
+                    if let lt = doc.xpath("//input[@name='lt']").first?["value"]  {
+                        ltValue = lt
                     }
                     
-                    let loginForm = [
-                        "username": self.netId,
-                        "password": self.password,
-                        "lt": ltValue,
-                        "execution": executionValue,
-                        "_eventId": "submit",
-                        "submit": "登陆"
-                    ]
+                    if let execution = doc.xpath("//input[@name='execution']").first?["value"]  {
+                        executionValue = execution
+                    }
                     
-                    // do real login
-                    self.realLogin(form: loginForm, formAction: formAction, completion: completion)
-                    
-                } else {
-                    let message = Messages.LoginPageError
-                    print("\(message)")
+                    if let action = doc.xpath("//form[@id='fm1']").first?["action"]  {
+                        formAction = action
+                    }
                 }
+                
+                let loginForm = [
+                    "username": self.netId,
+                    "password": self.password,
+                    "lt": ltValue,
+                    "execution": executionValue,
+                    "_eventId": "submit",
+                    "submit": "登陆"
+                ]
+                
+                // do real login
+                self.realLogin(form: loginForm, formAction: formAction, completion: completion)
+                
+            } else {
+                let message = Messages.LoginPageError
+                print("\(message)")
             }
+
         }
     }
     
@@ -165,7 +173,10 @@ class JwxtApiClient {
                         self.grade = Int(result.components(separatedBy: ",")[1])!
                         self.schoolId = result.components(separatedBy: ",")[2]
                         self.isLogin = true
-                        self.savePassword()
+                        
+                        if self.isSavePassword {
+                            self.savePassword()
+                        }
                         
                     } else {
                         throw JwxtApiError.badResponse
@@ -181,9 +192,7 @@ class JwxtApiClient {
                 
             }
             
-            DispatchQueue.main.async {
-                completion(isSuccess, message)
-            }
+            completion(isSuccess, message)
         }
     }
     

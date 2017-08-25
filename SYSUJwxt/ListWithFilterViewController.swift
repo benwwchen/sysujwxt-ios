@@ -13,10 +13,13 @@ class ListWithFilterViewController: UIViewController {
     // MARK: Properties
     var headerTitle: String = ""
     var filterType: FilterType = .none
+    let jwxt = JwxtApiClient.shared
     
     // get the saved value or init it
     var year: String = ""
     var term: String = ""
+    
+    
     
     // MARK: Methods
     func loadSavedFilterData() {
@@ -94,6 +97,7 @@ class ListWithFilterViewController: UIViewController {
     // MARK: Actions
     @IBAction func unwindToMainViewController(sender: UIStoryboardSegue) {
         print("unwinding")
+            
         refreshControl.beginRefreshing()
         loadData {
             self.refreshControl.endRefreshing()

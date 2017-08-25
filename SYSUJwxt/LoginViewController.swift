@@ -17,12 +17,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loginFormStackView: UIStackView!
     @IBOutlet weak var loadingStackView: UIStackView!
+    @IBOutlet weak var savePasswordSwitch: UISwitch!
     
     
     // MARK: Properties
     var jwxt = JwxtApiClient.shared
-    var isSavePassword = UserDefaults.standard.bool(forKey: "isSavePassword")
-    
     
     // MARK: Methods
     
@@ -34,13 +33,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         jwxt.netId = netId
         jwxt.password = password
         jwxt.login { (success, message) in
-            if success {
-                UserDefaults.standard.set(self.isSavePassword, forKey: "isSavePassword")
-                self.continueToMainVC()
-            } else {
-                self.loginFormStackView.setView(hidden: false)
-                self.loadingIndicator.stopAnimating()
-                self.loadingStackView.setView(hidden: true)
+            DispatchQueue.main.async {
+                if success {
+                    self.continueToMainVC()
+                } else {
+                    self.loginFormStackView.setView(hidden: false)
+                    self.loadingIndicator.stopAnimating()
+                    self.loadingStackView.setView(hidden: true)
+                }
             }
         }
     }
@@ -51,11 +51,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             loginFormStackView.setView(hidden: true)
             //loadingIndicator.startAnimating()
             jwxt.login(completion: { (success, message) in
-                if success {
-                    self.continueToMainVC()
-                } else {
-                    self.loginFormStackView.setView(hidden: false)
-                    self.loadingIndicator.stopAnimating()
+                DispatchQueue.main.async {
+                    if success {
+                        self.continueToMainVC()
+                    } else {
+                        self.loginFormStackView.setView(hidden: false)
+                        self.loadingIndicator.stopAnimating()
+                    }
                 }
             })
         }
@@ -64,6 +66,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // set up views
         loadingIndicator.hidesWhenStopped = true
         loadingStackView.setView(hidden: true)
         
@@ -76,7 +79,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         toolbar.sizeToFit()
         passwordTextField.inputAccessoryView = toolbar
         
-        if isSavePassword {
+        savePasswordSwitch.isOn = jwxt.isSavePassword
+        
+        // try auto login if password saved
+        if jwxt.isSavePassword {
             tryAutoLogin()
         }
         
@@ -122,7 +128,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func savePasswordSwitchValueChanged(_ sender: UISwitch) {
         
-        isSavePassword = sender.isOn
+        jwxt.isSavePassword = sender.isOn
         
     }
     

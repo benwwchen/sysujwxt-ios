@@ -62,4 +62,63 @@ class Grade {
         self.courseType = courseType
     }
     
+    // only be used when restoring from dicts
+    init(name: String, totalGrade: Double) {
+        self.name = name
+        self.totalGrade = totalGrade
+        
+        // the properties below will not be used
+        self.lecturer = ""
+        self.credit = 0
+        self.gpa = 0
+        self.period = 0
+        self.rankingInTeachingClass = ""
+        self.rankingInMajorClass = ""
+        self.courseType = .MajorCompulsory
+    }
+    
+    class func areEquals(grades1: [Grade], grades2: [Grade]) -> Bool {
+        
+        var array1 = grades1
+        var array2 = grades2
+        
+        if array1.count != array2.count {
+            return false
+        }
+        
+        // sort two arrays
+        array1.sort() { $0.name > $1.name }
+        array2.sort() { $0.name > $1.name }
+        
+        // get count of the matched items
+        let result = zip(array1, array2).enumerated().filter() {
+            $1.0.name == $1.1.name && $1.0.totalGrade == $1.1.totalGrade
+        }.count
+        
+        if result == array1.count {
+            return true
+        }
+        
+        return false
+    }
+    
+    class func getDiff(oldGrades: [Grade], newGrades: [Grade]) -> [Grade] {
+        
+        var result = [Grade]()
+        
+        for newGrade in newGrades {
+            if !oldGrades.contains(where: { return $0 == newGrade }) {
+                result.append(newGrade)
+            }
+        }
+        
+        return result
+        
+    }
+}
+
+extension Grade {
+    static func==(lhs: Grade, rhs: Grade) -> Bool {
+        return lhs.name == rhs.name && lhs.totalGrade == rhs.totalGrade
+    }
 }

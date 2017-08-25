@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        
+        if (launchOptions?[.localNotification]) != nil {
+            UserDefaults.standard.set(true, forKey: "gradesUpdateNotificationLaunch")
+        }
+        
         
 //        // check if the user has logged in and decide the initial
 //        self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -57,7 +63,153 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        let jwxt = JwxtApiClient.shared
+        
+        guard jwxt.isSavePassword else {
+            // password not saved, not checking updates
+            completionHandler(.noData)
+            return
+        }
+        
+        // check if session is still valid
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        var isSuccess = false
+        
+        if jwxt.isLogin {
+            
+            jwxt.getInfo(completion: { (success, message) in
+                if success {
+                    
+                    // valid
+                    self.checkUpdates(jwxt: jwxt, completion: { (result) in
+                        completionHandler(result)
+                    })
+                    
+                    isSuccess = success
+                    
+                }
+                semaphore.signal()
+            })
+        } else {
+            
+            // not logged in
+            semaphore.signal()
+        }
+        
+        _ = semaphore.wait(timeout: .distantFuture)
+        
+        if isSuccess {
+            return
+        }
+        
+        // login failed or not logged in, try relogin
+        jwxt.login(completion: { (success, message) in
+            if success {
+                self.checkUpdates(jwxt: jwxt, completion: { (result) in
+                    completionHandler(result)
+                })
+            } else {
+                // login fail
+                completionHandler(.noData)
+            }
+        })
+        
+    }
+    
+    // check grades updates
+    func checkUpdates(jwxt: JwxtApiClient, completion: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        if let year = UserDefaults.standard.string(forKey: "notify.year"),
+            let yearInt = Int(year.components(separatedBy: "-")[0]),
+            let term = UserDefaults.standard.string(forKey: "notify.term") {
+            
+            let savedGradesDict = UserDefaults.standard.object(forKey: "monitorGrades") as? [String: Double] ?? [String: Double]()
+            
+            var savedGrades = [Grade]()
+            for key in savedGradesDict.keys {
+                savedGrades.append(Grade(name: key, totalGrade: savedGradesDict[key]!))
+            }
+            
+            
+            jwxt.getScoreList(year: yearInt, term: Int(term)!, completion: { (success, object) in
+                if success, let grades = object as? [Grade] {
+                    if Grade.areEquals(grades1: savedGrades, grades2: grades) {
+                        
+                        // no updates
+                        
+                        // for testing background fetch working correctly
+                        let title = "成绩没更新😂"
+                        _ = "什么也没有啊"
+                        
+                        let test = grades.map({ "\($0.name): \($0.totalGrade)" }).joined(separator: "\n")
+                        print("\(test)")
+                        
+                        LocalNotification.dispatchlocalNotification(with: title, body: test, at: 2)
+                        
+                        completion(.noData)
+                        
+                    } else {
+                        // grades updated! save it
+                        let dictToSave = Dictionary(elements: grades.map({ ($0.name, $0.totalGrade) }))
+                        UserDefaults.standard.set(dictToSave, forKey: "monitorGrades")
+                        
+                        // and notify updates
+                        let diffGrades = Grade.getDiff(oldGrades: savedGrades, newGrades: grades)
+                        
+                        let title = "成绩更新了😄"
+                        let body = diffGrades.map({ "\($0.name): \($0.totalGrade)" }).joined(separator: "\n")
+                        
+                        LocalNotification.dispatchlocalNotification(with: title, body: body, at: 2)
+                        
+                        switch UIApplication.shared.applicationState {
+                            case .active:
+                                //app is currently active, can update badges count here
+                                UIApplication.shared.applicationIconBadgeNumber = 0
+                                
+                                break
+                            case .inactive:
+                                //app is transitioning from background to foreground (user taps notification), do what you need when user taps here
+                                UIApplication.shared.applicationIconBadgeNumber = diffGrades.count
+                                self.switchToGradeViewControllerAndUpdate()
+                                
+                                break
+                            case .background:
+                                //app is in background, if content-available key of your notification is set to 1, poll to your backend to retrieve data and update your interface here
+                                self.switchToGradeViewControllerAndUpdate()
+                                UIApplication.shared.applicationIconBadgeNumber = 1
+                                
+                                break
+                            default:
+                                break
+                        }
+                        
+                        completion(.newData)
+                        
+                    }
+                }
+            })
+        }
+    }
+    
+    func switchToGradeViewControllerAndUpdate() {
+        if let presentedViewController = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController {
+            if let tabBarControllor = presentedViewController as? UITabBarController {
+                DispatchQueue.main.async {
+                    tabBarControllor.selectedIndex = 1 // the grade tab
+                }
+            } else {
+                // some kind of settings/filters
+                presentedViewController.dismiss(animated: false, completion: nil)
+                DispatchQueue.main.async {
+                    (UIApplication.shared.keyWindow?.rootViewController as? UITabBarController)?.selectedIndex = 1 // the grade tab
+                }
+            }
+        }
+    }
 
 }
 
@@ -93,3 +245,17 @@ extension URLSession {
     
 }
 
+extension Date {
+    func addedBy(seconds: Int) -> Date {
+        return Calendar.current.date(byAdding: .second, value: seconds, to: self)!
+    }
+}
+
+extension Dictionary {
+    init(elements: [(Key, Value)]) {
+        self.init()
+        for (key, value) in elements {
+            updateValue(value, forKey: key)
+        }
+    }
+}

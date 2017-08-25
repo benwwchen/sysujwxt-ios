@@ -220,7 +220,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="esu-c0-KNA">
-                                                    <rect key="frame" x="192" y="8" width="167" height="29"/>
+                                                    <rect key="frame" x="192.5" y="8" width="166.5" height="29"/>
                                                     <segments>
                                                         <segment title="1"/>
                                                         <segment title="2"/>
@@ -243,6 +243,7 @@
                                                 <constraint firstItem="esu-c0-KNA" firstAttribute="centerY" secondItem="Xu9-Ui-zr9" secondAttribute="centerY" id="Ucb-vb-9o5"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="esu-c0-KNA" secondAttribute="trailing" constant="8" id="iSn-Ph-faA"/>
                                                 <constraint firstItem="nbP-di-v7A" firstAttribute="leading" secondItem="Xu9-Ui-zr9" secondAttribute="leadingMargin" constant="8" id="lWf-sC-tAN"/>
+                                                <constraint firstItem="esu-c0-KNA" firstAttribute="width" secondItem="Xu9-Ui-zr9" secondAttribute="width" multiplier="4:9" id="sKN-rv-D8S"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -517,6 +518,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="成绩" id="RrH-IB-uiw">
+                        <barButtonItem key="leftBarButtonItem" title="提醒" id="hQW-Dw-Ad5">
+                            <connections>
+                                <segue destination="y8w-Tn-KVA" kind="popoverPresentation" popoverAnchorBarButtonItem="hQW-Dw-Ad5" id="a0Y-Cu-Mxq">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="筛选" id="f5Y-ww-3qf">
                             <connections>
                                 <segue destination="4Sb-wb-5pr" kind="popoverPresentation" popoverAnchorBarButtonItem="f5Y-ww-3qf" id="9HM-tQ-nnm">
@@ -532,6 +540,154 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2628" y="0.0"/>
+        </scene>
+        <!--提醒设置-->
+        <scene sceneID="t0P-hy-sad">
+            <objects>
+                <tableViewController id="sZv-5X-o8e" customClass="NotifySettingTableViewController" customModule="SYSUJwxt" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="2BR-KA-6j2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="12V-N2-dwg">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="BUS-Sy-clG">
+                                        <rect key="frame" x="0.0" y="35" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BUS-Sy-clG" id="lJs-UM-Wuw">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="成绩更新提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tt6-1Z-2or">
+                                                    <rect key="frame" x="16" y="11" width="104" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3UM-Lz-WkK">
+                                                    <rect key="frame" x="310" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="switchValueChanged:" destination="sZv-5X-o8e" eventType="valueChanged" id="mR7-Aw-Uwa"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="3UM-Lz-WkK" secondAttribute="trailing" constant="8" id="AX4-mU-b3e"/>
+                                                <constraint firstItem="Tt6-1Z-2or" firstAttribute="centerY" secondItem="lJs-UM-Wuw" secondAttribute="centerY" id="Sjw-HH-c1k"/>
+                                                <constraint firstItem="Tt6-1Z-2or" firstAttribute="leading" secondItem="lJs-UM-Wuw" secondAttribute="leadingMargin" constant="8" id="iYN-iC-On8"/>
+                                                <constraint firstItem="3UM-Lz-WkK" firstAttribute="centerY" secondItem="lJs-UM-Wuw" secondAttribute="centerY" id="ofB-PE-3rb"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="提醒学期" id="LnW-L2-1BO">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="yearCell" id="MGg-yJ-qkU">
+                                        <rect key="frame" x="0.0" y="135" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MGg-yJ-qkU" id="yKX-3V-hV6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学年" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lg4-IJ-65W">
+                                                    <rect key="frame" x="16" y="11" width="35" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" text="2016-2017 " textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j6q-eB-dhf">
+                                                    <rect key="frame" x="141" y="11" width="92" height="21"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVW-Kn-iJa">
+                                                    <rect key="frame" x="276" y="11" width="83" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.1176470588" green="0.58039215690000001" blue="0.22352941179999999" alpha="0.77076914610000002" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="CVW-Kn-iJa" firstAttribute="centerY" secondItem="yKX-3V-hV6" secondAttribute="centerY" id="CR9-1e-hVq"/>
+                                                <constraint firstItem="lg4-IJ-65W" firstAttribute="leading" secondItem="yKX-3V-hV6" secondAttribute="leadingMargin" constant="8" id="SIK-9q-8C3"/>
+                                                <constraint firstItem="j6q-eB-dhf" firstAttribute="centerX" secondItem="yKX-3V-hV6" secondAttribute="centerX" id="TMr-vJ-Adz"/>
+                                                <constraint firstItem="lg4-IJ-65W" firstAttribute="centerY" secondItem="yKX-3V-hV6" secondAttribute="centerY" id="Z08-jS-Rqe"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="CVW-Kn-iJa" secondAttribute="trailing" constant="8" id="gbt-eg-ReC"/>
+                                                <constraint firstItem="j6q-eB-dhf" firstAttribute="baseline" secondItem="lg4-IJ-65W" secondAttribute="baseline" id="wyG-yL-dEh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="BJ9-I1-589">
+                                        <rect key="frame" x="0.0" y="179" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BJ9-I1-589" id="jtT-R5-fmk">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8NG-3I-qkJ">
+                                                    <rect key="frame" x="275.5" y="8" width="83.5" height="29"/>
+                                                    <segments>
+                                                        <segment title="1">
+                                                            <size key="contentOffset" width="1" height="0.0"/>
+                                                        </segment>
+                                                        <segment title="2"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="termSegmentedControlValueChanged:" destination="sZv-5X-o8e" eventType="valueChanged" id="ZI3-75-GQP"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="学期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpq-Fc-HmH">
+                                                    <rect key="frame" x="16" y="11" width="35" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lpq-Fc-HmH" firstAttribute="leading" secondItem="jtT-R5-fmk" secondAttribute="leadingMargin" constant="8" id="4IS-m0-dXf"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="8NG-3I-qkJ" secondAttribute="trailing" constant="8" id="Bmj-aJ-MNu"/>
+                                                <constraint firstItem="8NG-3I-qkJ" firstAttribute="centerY" secondItem="jtT-R5-fmk" secondAttribute="centerY" id="WB6-K2-dCo"/>
+                                                <constraint firstItem="8NG-3I-qkJ" firstAttribute="width" secondItem="jtT-R5-fmk" secondAttribute="width" multiplier="2:9" id="tWg-gM-G7J"/>
+                                                <constraint firstItem="lpq-Fc-HmH" firstAttribute="centerY" secondItem="jtT-R5-fmk" secondAttribute="centerY" id="tyo-yE-eka"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="sZv-5X-o8e" id="Sm5-c5-fH0"/>
+                            <outlet property="delegate" destination="sZv-5X-o8e" id="oC7-9T-CvQ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="提醒设置" id="43g-p0-9Vr">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="xlb-RJ-NTE">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="sZv-5X-o8e" id="iRR-d1-F5K"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="TKg-6X-12i">
+                            <connections>
+                                <segue destination="DOj-T0-1Kd" kind="unwind" unwindAction="unwindToMainViewControllerWithSender:" id="pr9-AO-WU1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="notifySwitch" destination="3UM-Lz-WkK" id="pSr-HN-ySz"/>
+                        <outlet property="saveButton" destination="TKg-6X-12i" id="LhQ-Dc-JlA"/>
+                        <outlet property="termSegmentedControl" destination="8NG-3I-qkJ" id="GnY-tm-SgK"/>
+                        <outlet property="yearLabel" destination="CVW-Kn-iJa" id="eRU-EG-xAN"/>
+                        <outlet property="yearTableViewCell" destination="MGg-yJ-qkU" id="Nqz-dP-jnq"/>
+                        <outlet property="yearTextField" destination="j6q-eB-dhf" id="Dcm-CD-oiT"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d6y-bZ-2wK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="DOj-T0-1Kd" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="4353" y="315"/>
         </scene>
         <!--绩点-->
         <scene sceneID="KVY-xT-JRR">
@@ -802,6 +958,7 @@
                         <outlet property="loginFormStackView" destination="DZo-G0-VF0" id="rjj-YD-QeZ"/>
                         <outlet property="netIdTextField" destination="eP7-Zd-Pml" id="n3E-Lk-Yxo"/>
                         <outlet property="passwordTextField" destination="Jek-9V-cMN" id="WeM-6X-U51"/>
+                        <outlet property="savePasswordSwitch" destination="Nqc-MH-C5p" id="14P-Tt-1Xt"/>
                         <segue destination="mtC-Ag-aaF" kind="unwind" identifier="unwindSegueToMain" unwindAction="unwindToMainViewControllerWithSender:" id="Zrr-dF-lwh"/>
                         <segue destination="49e-Tb-3d3" kind="showDetail" identifier="segueToMainAfterLogin" animates="NO" action="showViewController:sender:" id="5JX-Rs-I3B"/>
                     </connections>
@@ -927,12 +1084,30 @@
             </objects>
             <point key="canvasLocation" x="1689" y="1460"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="di8-va-9WD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="y8w-Tn-KVA" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RQB-75-3zi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="sZv-5X-o8e" kind="relationship" relationship="rootViewController" id="0JS-mD-kMt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UT3-Pe-puE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3494" y="315"/>
+        </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1R5-un-LaQ"/>
+        <segue reference="9HM-tQ-nnm"/>
     </inferredMetricsTieBreakers>
 </document>

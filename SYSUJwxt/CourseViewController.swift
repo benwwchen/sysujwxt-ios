@@ -15,7 +15,6 @@ class CourseViewController: ListWithFilterViewController,
     // MARK: Properties
     var courses = [Course]()
     var dayCourses = [Int: [Course]]()
-    var jwxt = JwxtApiClient.shared
     
     // MARK: Methods
     func checkLogin() {

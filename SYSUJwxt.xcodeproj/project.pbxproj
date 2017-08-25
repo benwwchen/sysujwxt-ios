@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		371044FB1F4EC0940014A26B /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371044FA1F4EC0940014A26B /* MoreTableViewController.swift */; };
 		371044FD1F4EEE9F0014A26B /* ListWithFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371044FC1F4EEE9F0014A26B /* ListWithFilterViewController.swift */; };
+		371044FF1F4F04E60014A26B /* NotifySettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371044FE1F4F04E60014A26B /* NotifySettingTableViewController.swift */; };
+		371045021F50209E0014A26B /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371045011F50209E0014A26B /* LocalNotification.swift */; };
 		372543271F495BE80004BB36 /* GradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372543261F495BE80004BB36 /* GradeTableViewCell.swift */; };
 		37437E731F45731900E60BB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E721F45731900E60BB6 /* AppDelegate.swift */; };
 		37437E751F45731900E60BB6 /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E741F45731900E60BB6 /* CourseViewController.swift */; };
@@ -44,6 +46,8 @@
 		14AB2205F0CCDDE8E223A263 /* Pods_SYSUJwxtTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SYSUJwxtTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		371044FA1F4EC0940014A26B /* MoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
 		371044FC1F4EEE9F0014A26B /* ListWithFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListWithFilterViewController.swift; sourceTree = "<group>"; };
+		371044FE1F4F04E60014A26B /* NotifySettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifySettingTableViewController.swift; sourceTree = "<group>"; };
+		371045011F50209E0014A26B /* LocalNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		372543261F495BE80004BB36 /* GradeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradeTableViewCell.swift; sourceTree = "<group>"; };
 		37437E6F1F45731900E60BB6 /* SYSUJwxt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SYSUJwxt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37437E721F45731900E60BB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +96,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		371045001F5020750014A26B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				37BADCB21F4ADFDF00A74CCB /* DayOfWeek.swift */,
+				37437E941F45755C00E60BB6 /* JwxtApiClient.swift */,
+				371045011F50209E0014A26B /* LocalNotification.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		372543281F495BF50004BB36 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +117,7 @@
 				37BADCB81F4AFB7A00A74CCB /* FilterTableViewController.swift */,
 				371044FA1F4EC0940014A26B /* MoreTableViewController.swift */,
 				371044FC1F4EEE9F0014A26B /* ListWithFilterViewController.swift */,
+				371044FE1F4F04E60014A26B /* NotifySettingTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -143,12 +158,11 @@
 				372543281F495BF50004BB36 /* Controllers */,
 				378F1A761F45F11A0007CAC4 /* Models */,
 				37437E721F45731900E60BB6 /* AppDelegate.swift */,
+				371045001F5020750014A26B /* Utils */,
 				37437E781F45731900E60BB6 /* Main.storyboard */,
 				37437E7B1F45731900E60BB6 /* Assets.xcassets */,
 				37437E7D1F45731900E60BB6 /* LaunchScreen.storyboard */,
 				37437E801F45731900E60BB6 /* Info.plist */,
-				37437E941F45755C00E60BB6 /* JwxtApiClient.swift */,
-				37BADCB21F4ADFDF00A74CCB /* DayOfWeek.swift */,
 			);
 			path = SYSUJwxt;
 			sourceTree = "<group>";
@@ -427,6 +441,8 @@
 				371044FD1F4EEE9F0014A26B /* ListWithFilterViewController.swift in Sources */,
 				37437E751F45731900E60BB6 /* CourseViewController.swift in Sources */,
 				37437E9B1F46DF5A00E60BB6 /* CourseTableViewCell.swift in Sources */,
+				371044FF1F4F04E60014A26B /* NotifySettingTableViewController.swift in Sources */,
+				371045021F50209E0014A26B /* LocalNotification.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

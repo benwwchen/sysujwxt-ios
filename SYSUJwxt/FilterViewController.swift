@@ -59,9 +59,6 @@ class FilterViewController: UIViewController {
             os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
         }
         
-        
-        
-        
     }
 
 }

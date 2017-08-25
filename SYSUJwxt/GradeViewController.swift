@@ -15,7 +15,6 @@ class GradeViewController: ListWithFilterViewController,
     
     // MARK: Properties
     var grades = [Grade]()
-    var jwxt = JwxtApiClient.shared
     
     // MARK: Methods
     override func loadData(completion: (() -> Void)? = nil) {
@@ -66,6 +65,7 @@ class GradeViewController: ListWithFilterViewController,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.setSelected(false, animated: true)
             cell.isSelected = false
@@ -83,6 +83,23 @@ class GradeViewController: ListWithFilterViewController,
         headerTitle = "成绩"
         filterType = .grade
         initSetup()
+    }
+    
+    override func unwindToMainViewController(sender: UIStoryboardSegue) {
+        super.unwindToMainViewController(sender: sender)
+        
+        // save current grades if notification is on
+        if let _ = (sender.source as? UINavigationController)?.topViewController as? NotifySettingTableViewController,
+            let year = UserDefaults.standard.string(forKey: "notify.year"),
+            let yearInt = Int(year.components(separatedBy: "-")[0]),
+            let term = UserDefaults.standard.string(forKey: "notify.term") {
+            // save current grades
+            jwxt.getScoreList(year: yearInt, term: Int(term)!, completion: { (success, object) in
+                if success, let grades = object as? [Grade] {
+                    UserDefaults.standard.set(grades, forKey: "monitorGrades")
+                }
+            })
+        }
     }
 
 }
