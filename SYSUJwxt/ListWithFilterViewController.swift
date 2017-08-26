@@ -18,8 +18,7 @@ class ListWithFilterViewController: UIViewController {
     // get the saved value or init it
     var year: String = ""
     var term: String = ""
-    
-    
+    var coursesType = [String]()
     
     // MARK: Methods
     func loadSavedFilterData() {
@@ -50,6 +49,11 @@ class ListWithFilterViewController: UIViewController {
                 term = "2"
             }
             UserDefaults.standard.set(term, forKey: "\(self.filterType.rawValue).term")
+        }
+        
+        // try to get the saved coursesType
+        if let savedCoursesType = UserDefaults.standard.object(forKey: "\(self.filterType.rawValue).courseType") as? [String] {
+            coursesType = savedCoursesType
         }
     }
     

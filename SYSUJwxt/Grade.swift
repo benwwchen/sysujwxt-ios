@@ -13,6 +13,22 @@ enum CourseType: Int {
     case PublicElective = 30
     case MajorCompulsory = 11
     case MajorElective = 21
+    
+    static func fromString(string: String) -> CourseType {
+        switch string {
+            case "公必":
+                return .PublicCompulsory
+            case "专必":
+                return .MajorCompulsory
+            case "专选":
+                return .MajorElective
+            case "公选":
+                return .PublicElective
+            default:
+                break
+        }
+        return .PublicCompulsory
+    }
 }
 
 class Grade {
@@ -28,6 +44,8 @@ class Grade {
     var rankingInTeachingClass: String
     var rankingInMajorClass: String
     var courseType: CourseType
+    var year: Int
+    var term: Int
     
     //MARK: Initialization
     
@@ -46,7 +64,11 @@ class Grade {
             let rankingInMajorClass = json["njzypm"] as? String,
             let courseTypeString = json["kclb"] as? String,
             let courseTypeRaw = Int(courseTypeString),
-            let courseType = CourseType(rawValue: courseTypeRaw)
+            let courseType = CourseType(rawValue: courseTypeRaw),
+            let yearString = (json["xnd"] as? String)?.components(separatedBy: "-")[0],
+            let year = Int(yearString),
+            let termString = json["xq"] as? String,
+            let term = Int(termString)
             else {
                 return nil
         }
@@ -60,6 +82,8 @@ class Grade {
         self.rankingInTeachingClass = rankingInTeachingClass
         self.rankingInMajorClass = rankingInMajorClass
         self.courseType = courseType
+        self.year = year
+        self.term = term
     }
     
     // only be used when restoring from dicts
@@ -75,6 +99,8 @@ class Grade {
         self.rankingInTeachingClass = ""
         self.rankingInMajorClass = ""
         self.courseType = .MajorCompulsory
+        self.year = 0
+        self.term = 0
     }
     
     class func areEquals(grades1: [Grade], grades2: [Grade]) -> Bool {

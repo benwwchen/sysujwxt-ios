@@ -19,19 +19,50 @@ class GradeViewController: ListWithFilterViewController,
     // MARK: Methods
     override func loadData(completion: (() -> Void)? = nil) {
         loadSavedFilterData()
-        if year != "全部" && term != "全部" {
-            jwxt.getScoreList(year: Int(year.components(separatedBy: "-")[0])!, term: Int(term)!) { (success, object) in
-                if success, let grades = object as? [Grade] {
-                    self.grades.removeAll()
-                    self.grades.append(contentsOf: grades)
-                    DispatchQueue.main.async {
-                        self.gradesTableView.reloadData()
-                        completion?()
+        
+        var years = [Int]()
+        var terms = [Int]()
+        
+        if year == "全部" {
+            years = jwxt.allYears
+        } else {
+            years = [Int(year.components(separatedBy: "-")[0])!]
+        }
+        
+        if term == "全部" {
+            terms = [1, 2, 3]
+        } else {
+            terms = [Int(term)!]
+        }
+        
+        let coursesTypeValues = coursesType.map({ CourseType.fromString(string: $0) })
+        
+        jwxt.getGradeList(years: years, terms: terms) { (success, object) in
+            if success, let grades = object as? [Grade] {
+                self.grades.removeAll()
+                // filter a courseType and append to the table data
+                let filteredGrades = grades.filter({ coursesTypeValues.contains($0.courseType) })
+                let sortedFilteredGrades = filteredGrades.sorted(by: { (grade1, grade2) -> Bool in
+                    if grade1.year > grade2.year {
+                        return true
+                    } else if grade1.year == grade2.year {
+                        if grade1.term > grade2.term {
+                            return true
+                        } else if grade1.term == grade2.term {
+                            return grade1.name > grade2.name
+                        }
                     }
+                    return false
+                })
+                self.grades.append(contentsOf: sortedFilteredGrades)
+                DispatchQueue.main.async {
+                    self.gradesTableView.reloadData()
+                    completion?()
                 }
             }
         }
-        // TODO: handle "all" options and fitler courseType
+        
+        
     }
     
     // MARK: Table Views
@@ -94,7 +125,7 @@ class GradeViewController: ListWithFilterViewController,
             let yearInt = Int(year.components(separatedBy: "-")[0]),
             let term = UserDefaults.standard.string(forKey: "notify.term") {
             // save current grades
-            jwxt.getScoreList(year: yearInt, term: Int(term)!, completion: { (success, object) in
+            jwxt.getGradeList(years: [yearInt], terms: [Int(term)!], completion: { (success, object) in
                 if success, let grades = object as? [Grade] {
                     UserDefaults.standard.set(grades, forKey: "monitorGrades")
                 }

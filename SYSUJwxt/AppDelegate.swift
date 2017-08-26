@@ -20,7 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if (launchOptions?[.localNotification]) != nil {
             UserDefaults.standard.set(true, forKey: "gradesUpdateNotificationLaunch")
+        } else {
+            UserDefaults.standard.set(false, forKey: "gradesUpdateNotificationLaunch")
         }
+        
+        if UserDefaults.standard.bool(forKey: "notify.isOn") {
+            // check updates every 2 hours
+            UIApplication.shared.setMinimumBackgroundFetchInterval(2400)
+        } else {
+            UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalNever)
+        }
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
         
         
 //        // check if the user has logged in and decide the initial
@@ -50,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -68,8 +80,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let jwxt = JwxtApiClient.shared
         
+        LocalNotification.dispatchlocalNotification(with: "正在检查成绩", body: "...", at: 2)
+        
         guard jwxt.isSavePassword else {
             // password not saved, not checking updates
+            LocalNotification.dispatchlocalNotification(with: "密码没保存", body: "...", at: 5)
             completionHandler(.noData)
             return
         }
@@ -94,6 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 semaphore.signal()
             })
+            
         } else {
             
             // not logged in
@@ -114,6 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 })
             } else {
                 // login fail
+                LocalNotification.dispatchlocalNotification(with: "重新登录失败", body: message as? String ?? "", at: 5)
                 completionHandler(.noData)
             }
         })
@@ -134,8 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 savedGrades.append(Grade(name: key, totalGrade: savedGradesDict[key]!))
             }
             
-            
-            jwxt.getScoreList(year: yearInt, term: Int(term)!, completion: { (success, object) in
+            jwxt.getGradeList(years: [yearInt], terms: [Int(term)!], completion: { (success, object) in
                 if success, let grades = object as? [Grade] {
                     if Grade.areEquals(grades1: savedGrades, grades2: grades) {
                         
@@ -148,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         let test = grades.map({ "\($0.name): \($0.totalGrade)" }).joined(separator: "\n")
                         print("\(test)")
                         
-                        LocalNotification.dispatchlocalNotification(with: title, body: test, at: 2)
+                        LocalNotification.dispatchlocalNotification(with: title, body: test, at: 5)
                         
                         completion(.noData)
                         
@@ -163,7 +179,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         let title = "成绩更新了😄"
                         let body = diffGrades.map({ "\($0.name): \($0.totalGrade)" }).joined(separator: "\n")
                         
-                        LocalNotification.dispatchlocalNotification(with: title, body: body, at: 2)
+                        LocalNotification.dispatchlocalNotification(with: title, body: body, at: 5)
                         
                         switch UIApplication.shared.applicationState {
                             case .active:
@@ -182,8 +198,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 self.switchToGradeViewControllerAndUpdate()
                                 UIApplication.shared.applicationIconBadgeNumber = 1
                                 
-                                break
-                            default:
                                 break
                         }
                         

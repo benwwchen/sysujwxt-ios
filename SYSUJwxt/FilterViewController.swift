@@ -56,7 +56,11 @@ class FilterViewController: UIViewController {
                 
             }
         } else {
-            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            if #available(iOS 10.0, *) {
+                os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            } else {
+                // Fallback on earlier versions
+            }
         }
         
     }

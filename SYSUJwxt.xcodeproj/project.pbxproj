@@ -12,6 +12,7 @@
 		371044FF1F4F04E60014A26B /* NotifySettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371044FE1F4F04E60014A26B /* NotifySettingTableViewController.swift */; };
 		371045021F50209E0014A26B /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371045011F50209E0014A26B /* LocalNotification.swift */; };
 		372543271F495BE80004BB36 /* GradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372543261F495BE80004BB36 /* GradeTableViewCell.swift */; };
+		37346C431F51C3B8002725B9 /* CoursesExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37346C421F51C3B8002725B9 /* CoursesExportManager.swift */; };
 		37437E731F45731900E60BB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E721F45731900E60BB6 /* AppDelegate.swift */; };
 		37437E751F45731900E60BB6 /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E741F45731900E60BB6 /* CourseViewController.swift */; };
 		37437E771F45731900E60BB6 /* GradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E761F45731900E60BB6 /* GradeViewController.swift */; };
@@ -49,6 +50,8 @@
 		371044FE1F4F04E60014A26B /* NotifySettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifySettingTableViewController.swift; sourceTree = "<group>"; };
 		371045011F50209E0014A26B /* LocalNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		372543261F495BE80004BB36 /* GradeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradeTableViewCell.swift; sourceTree = "<group>"; };
+		37346C411F51BFA0002725B9 /* SYSUJwxt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SYSUJwxt.entitlements; sourceTree = "<group>"; };
+		37346C421F51C3B8002725B9 /* CoursesExportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesExportManager.swift; sourceTree = "<group>"; };
 		37437E6F1F45731900E60BB6 /* SYSUJwxt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SYSUJwxt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37437E721F45731900E60BB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37437E741F45731900E60BB6 /* CourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +105,7 @@
 				37BADCB21F4ADFDF00A74CCB /* DayOfWeek.swift */,
 				37437E941F45755C00E60BB6 /* JwxtApiClient.swift */,
 				371045011F50209E0014A26B /* LocalNotification.swift */,
+				37346C421F51C3B8002725B9 /* CoursesExportManager.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -154,6 +158,7 @@
 		37437E711F45731900E60BB6 /* SYSUJwxt */ = {
 			isa = PBXGroup;
 			children = (
+				37346C411F51BFA0002725B9 /* SYSUJwxt.entitlements */,
 				372543291F495C0F0004BB36 /* Views */,
 				372543281F495BF50004BB36 /* Controllers */,
 				378F1A761F45F11A0007CAC4 /* Models */,
@@ -266,6 +271,9 @@
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
+							};
+							com.apple.DataProtection = {
+								enabled = 0;
 							};
 						};
 					};
@@ -436,6 +444,7 @@
 				37437E971F457E2B00E60BB6 /* Course.swift in Sources */,
 				37BADCB91F4AFB7A00A74CCB /* FilterTableViewController.swift in Sources */,
 				372543271F495BE80004BB36 /* GradeTableViewCell.swift in Sources */,
+				37346C431F51C3B8002725B9 /* CoursesExportManager.swift in Sources */,
 				371044FB1F4EC0940014A26B /* MoreTableViewController.swift in Sources */,
 				37437E731F45731900E60BB6 /* AppDelegate.swift in Sources */,
 				371044FD1F4EEE9F0014A26B /* ListWithFilterViewController.swift in Sources */,
@@ -587,6 +596,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = L28682ZS4N;
 				INFOPLIST_FILE = SYSUJwxt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bencww.ios.SYSUJwxt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -603,6 +613,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = L28682ZS4N;
 				INFOPLIST_FILE = SYSUJwxt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bencww.ios.SYSUJwxt;
 				PRODUCT_NAME = "$(TARGET_NAME)";

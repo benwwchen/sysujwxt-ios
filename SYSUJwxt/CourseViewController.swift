@@ -16,6 +16,8 @@ class CourseViewController: ListWithFilterViewController,
     var courses = [Course]()
     var dayCourses = [Int: [Course]]()
     
+    lazy var coursesExportManager = CoursesExportManager.shared
+    
     // MARK: Methods
     func checkLogin() {
         if !jwxt.isLogin {
@@ -88,7 +90,7 @@ class CourseViewController: ListWithFilterViewController,
         cell.locationLabel.text = course.location
         
         if let dayString = course.dayString {
-            cell.timeLabel.text = "\(dayString)  \(course.startTime)-\(course.endTime)  \(course.duration)"
+            cell.timeLabel.text = "\(dayString)  \(course.startClass)-\(course.endClass)  \(course.duration)"
         }
         
         return cell
@@ -97,6 +99,15 @@ class CourseViewController: ListWithFilterViewController,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    // MARK: Actions
+    @IBAction func exportButtonPressed(_ sender: UIBarButtonItem) {
+        // Export courses to the calendar
+        coursesExportManager.courses = self.courses
+        //coursesExportManager.export()
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

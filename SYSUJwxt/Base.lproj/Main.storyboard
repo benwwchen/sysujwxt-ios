@@ -96,6 +96,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="课程" id="oWc-IU-8Ar">
+                        <barButtonItem key="leftBarButtonItem" title="导出" id="t03-k6-3rg">
+                            <connections>
+                                <action selector="exportButtonPressed:" destination="9pv-A4-QxB" id="MML-SM-yc1"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="切换" id="3cX-R6-ykZ">
                             <connections>
                                 <segue destination="4Sb-wb-5pr" kind="popoverPresentation" popoverAnchorBarButtonItem="3cX-R6-ykZ" id="1R5-un-LaQ">
@@ -775,11 +780,11 @@
                                         <rect key="frame" x="0.0" y="100" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zko-pC-uS7" id="COE-Ts-QWN">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="登出" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ibd-W3-wlZ">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="44"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1108,6 +1113,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9HM-tQ-nnm"/>
+        <segue reference="1R5-un-LaQ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -27,6 +27,21 @@ class JwxtApiClient {
         }
     }
     
+    lazy var allYears: [Int] = {
+        var years = [Int]()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
+        if let currentYear = Int(dateFormatter.string(from: Date())) {
+            let entranceYear = JwxtApiClient.shared.grade
+            for year in (entranceYear...currentYear).reversed() {
+                years.append(year)
+            }
+        }
+        
+        return years
+    }()
+    
     let session = URLSession.shared
     
     
@@ -232,14 +247,14 @@ class JwxtApiClient {
                                         if tds.count < 8 {
                                             for course in courses {
                                                 if course.day <= index + offset &&
-                                                    course.startTime < courseTime[0] &&
-                                                    course.endTime >= courseTime[0] {
+                                                    course.startClass < courseTime[0] &&
+                                                    course.endClass >= courseTime[0] {
                                                     offset += 1
                                                 }
                                             }
                                         }
                                         
-                                        courses.append(Course.init(name: contents[0], location: contents[1], day: index + offset, startTime: courseTime[0], endTime: courseTime[1], duration: contents[3]))
+                                        courses.append(Course.init(name: contents[0], location: contents[1], day: index + offset, startClass: courseTime[0], endClass: courseTime[1], duration: contents[3]))
                                         
                                         print("\(contents)")
                                     }
@@ -272,57 +287,84 @@ class JwxtApiClient {
         }
     }
     
-    func getScoreList(year: Int, term: Int, completion: @escaping (_ success: Bool, _ object: Any?) -> ()) {
+    func getGradeList(years: [Int], terms: [Int], completion: @escaping (_ success: Bool, _ object: Any?) -> ()) {
         
-        let yearArg = "\(year)-\(year+1)"
+        var grades = [Grade]()
+        var allSuccess = true
+        var message: String = Messages.Success
         
-        let request = clientURLRequest(method: "POST", urlString: Paths.BaseUrl + Paths.ScoreListPath, data: "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{kccjStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"kccjStore\",pageNumber:1,pageSize:10,recordCount:0,rowSetName:\"pojo_com.neusoft.education.sysu.xscj.xscjcx.model.KccjModel\",order:\"t.xn, t.xq, t.kch, t.bzw\"}},parameters:{\"kccjStore-params\": [{\"name\": \"Filter_t.pylbm_0.7607312996540416\", \"type\": \"String\", \"value\": \"'01'\", \"condition\": \" = \", \"property\": \"t.pylbm\"}, {\"name\": \"Filter_t.xn_0.7704413492958447\", \"type\": \"String\", \"value\": \"'\(yearArg)'\", \"condition\": \" = \", \"property\": \"t.xn\"}, {\"name\": \"Filter_t.xq_0.40025491171181043\", \"type\": \"String\", \"value\": \"'\(term)'\", \"condition\": \" = \", \"property\": \"t.xq\"}], \"args\": [\"student\"]}}}", isUemsJwxtApi: true)
+        // use semaphore to wait until all requests on the same queue complete
+        let semaphore = DispatchSemaphore(value: 0)
         
-        customDataTask(request: request) { (success, object) in
+        // and make the writes to the grades array serial
+        let queue = DispatchQueue(label: "getAllGradesQueue", attributes: .concurrent)
+        
+        for year in years {
             
-            print ("\(String(describing: NSString(data: object as! Data, encoding: String.Encoding.utf8.rawValue)))")
+            let yearArg = "\(year)-\(year+1)"
             
-            var grades = [Grade]()
-            var message: String = Messages.Success
-            var isSuccess: Bool = true
-            
-            do {
+            for term in terms {
+                let request = clientURLRequest(method: "POST", urlString: Paths.BaseUrl + Paths.ScoreListPath, data: "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{kccjStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"kccjStore\",pageNumber:1,pageSize:10,recordCount:0,rowSetName:\"pojo_com.neusoft.education.sysu.xscj.xscjcx.model.KccjModel\",order:\"t.xn, t.xq, t.kch, t.bzw\"}},parameters:{\"kccjStore-params\": [{\"name\": \"Filter_t.pylbm_0.7607312996540416\", \"type\": \"String\", \"value\": \"'01'\", \"condition\": \" = \", \"property\": \"t.pylbm\"}, {\"name\": \"Filter_t.xn_0.7704413492958447\", \"type\": \"String\", \"value\": \"'\(yearArg)'\", \"condition\": \" = \", \"property\": \"t.xn\"}, {\"name\": \"Filter_t.xq_0.40025491171181043\", \"type\": \"String\", \"value\": \"'\(term)'\", \"condition\": \" = \", \"property\": \"t.xq\"}], \"args\": [\"student\"]}}}", isUemsJwxtApi: true)
                 
-                if success, let string = String(data: object as! Data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
+                customDataTask(request: request) { (success, object) in
                     
-                    guard let resultData = string.matchingStrings(regex: "\\{primary:(\\[.*\\])\\}").first?[1].data(using: .utf8) else {
-                        throw JwxtApiError.badResponse
-                    }
-                    
-                    // now we got the correct JSON format
-                    guard let json = (try? JSONSerialization.jsonObject(with: resultData, options: [])) as? [Any] else {
-                        throw JwxtApiError.badResponse
-                    }
-                    
-                    print("\(json)")
-                    
-                    for object in json {
-                        if let dict = object as? [String : Any],
-                            let grade = Grade.init(json: dict) {
-                            grades.append(grade)
+                    // append results to the array serially
+                    queue.async(flags: .barrier) {
+                        
+                        print ("\(String(describing: NSString(data: object as! Data, encoding: String.Encoding.utf8.rawValue)))")
+                        
+                        do {
+                            
+                            if success, let string = String(data: object as! Data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
+                                
+                                guard let resultData = string.matchingStrings(regex: "\\{primary:(\\[.*\\])\\}").first?[1].data(using: .utf8) else {
+                                    throw JwxtApiError.badResponse
+                                }
+                                
+                                // now we got the correct JSON format
+                                guard let json = (try? JSONSerialization.jsonObject(with: resultData, options: [])) as? [Any] else {
+                                    throw JwxtApiError.badResponse
+                                }
+                                
+                                print("\(json)")
+                                
+                                
+                                for object in json {
+                                    if let dict = object as? [String : Any],
+                                        let grade = Grade.init(json: dict) {
+                                        grades.append(grade)
+                                    }
+                                }
+                                
+                                
+                            }
+                            
+                        } catch {
+                            
+                            print("\(error)")
+                            allSuccess = false
+                            message = Messages.GetCoursesError
+                            
                         }
+                        
+                        semaphore.signal()
+                            
                     }
-                    
                 }
-                
-            } catch {
-                
-                print("\(error)")
-                isSuccess = false
-                message = Messages.GetCoursesError
-                
             }
-            
-            if isSuccess {
-                completion(isSuccess, grades)
-            } else {
-                completion(isSuccess, message)
-            }
+        }
+        
+        
+        // wait for all requests to be handled
+        for _ in 0..<years.count*terms.count {
+            _ = semaphore.wait(timeout: .distantFuture)
+        }
+        
+        // collect all
+        if allSuccess {
+            completion(allSuccess, grades)
+        } else {
+            completion(allSuccess, message)
         }
     }
     
@@ -464,11 +506,12 @@ class JwxtApiClient {
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: userAccount as NSObject,
             kSecAttrService: identifier as NSObject,
-            kSecValueData: passwordData]
+            kSecValueData: passwordData,
+            kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock]
         SecItemDelete(keychainQuery as CFDictionary) //Trying to delete the item from Keychaing just in case it already exists there
         let status: OSStatus = SecItemAdd(keychainQuery as CFDictionary, nil)
         if (status == errSecSuccess) {
-            print("Cookies succesfully saved into Keychain")
+            print("Password succesfully saved into Keychain")
         }
     }
     
