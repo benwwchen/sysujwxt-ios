@@ -70,6 +70,7 @@ class JwxtApiClient {
     
     enum JwxtApiError: Error {
         case badResponse
+        case timeOut
     }
     
     //MARK: Initialization

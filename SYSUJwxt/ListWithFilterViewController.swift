@@ -14,6 +14,7 @@ class ListWithFilterViewController: UIViewController {
     var headerTitle: String = ""
     var filterType: FilterType = .none
     let jwxt = JwxtApiClient.shared
+    var isUnwinding = false
     
     // get the saved value or init it
     var year: String = ""
@@ -93,7 +94,10 @@ class ListWithFilterViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        refreshControl.beginRefreshingManually()
+        if isUnwinding {
+            refreshControl.beginRefreshingManually()
+            isUnwinding = false
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,9 +107,11 @@ class ListWithFilterViewController: UIViewController {
     
     // MARK: Actions
     @IBAction func unwindToMainViewController(sender: UIStoryboardSegue) {
-        print("unwinding")
         
+        loadSavedFilterData()
         setTitle()
+        
+        isUnwinding = true
     }
     
     lazy var refreshControl: UIRefreshControl = {

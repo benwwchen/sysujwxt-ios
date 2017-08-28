@@ -98,17 +98,16 @@ class CourseViewController: ListWithFilterViewController,
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    // MARK: Actions
-    @IBAction func exportButtonPressed(_ sender: UIBarButtonItem) {
-        // Export courses to the calendar
-        coursesExportManager.courses = self.courses
-        coursesExportManager.authorize { (success, error) in
-            if success {
-                if let yearInt = Int(self.year.components(separatedBy: "-")[0]),
-                    let termInt = Int(self.term) {
-                    //self.coursesExportManager.export(year: yearInt, term: termInt)
-                }
-                self.coursesExportManager.deleteAll()
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if (segue.destination as? UINavigationController)?.topViewController is CourseExportTableViewController {
+            coursesExportManager.courses = courses
+            if let yearInt = Int(year.components(separatedBy: "-")[0]),
+                let termInt = Int(term) {
+                coursesExportManager.year = yearInt
+                coursesExportManager.term = termInt
             }
         }
     }
