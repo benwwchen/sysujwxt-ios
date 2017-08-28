@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import EventKit
 
 enum DayOfWeek: String {
     case Monday = "星期一"
@@ -25,7 +26,13 @@ enum DayOfWeek: String {
     
     var dayNumber: Int {
         get {
-            return self.hashValue
+            return self.hashValue + 1
+        }
+    }
+    
+    var ekDayOfWeek: EKWeekday? {
+        get {
+            return EKWeekday(rawValue: (self.dayNumber + 1) % 7)
         }
     }
     

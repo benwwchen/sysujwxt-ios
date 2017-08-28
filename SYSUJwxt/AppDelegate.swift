@@ -151,7 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 savedGrades.append(Grade(name: key, totalGrade: savedGradesDict[key]!))
             }
             
-            jwxt.getGradeList(years: [yearInt], terms: [Int(term)!], completion: { (success, object) in
+            jwxt.getGradeList(year: yearInt, term: Int(term)!, completion: { (success, object) in
                 if success, let grades = object as? [Grade] {
                     if Grade.areEquals(grades1: savedGrades, grades2: grades) {
                         

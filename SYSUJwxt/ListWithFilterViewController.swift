@@ -82,15 +82,18 @@ class ListWithFilterViewController: UIViewController {
     }
     
     func initSetup() {
-        refreshControl.beginRefreshing()
-        loadData {
-            self.refreshControl.endRefreshing()
-        }
+        refreshControl.beginRefreshingManually()
         setTitle()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        refreshControl.beginRefreshingManually()
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,11 +104,7 @@ class ListWithFilterViewController: UIViewController {
     // MARK: Actions
     @IBAction func unwindToMainViewController(sender: UIStoryboardSegue) {
         print("unwinding")
-            
-        refreshControl.beginRefreshing()
-        loadData {
-            self.refreshControl.endRefreshing()
-        }
+        
         setTitle()
     }
     
@@ -127,9 +126,15 @@ class ListWithFilterViewController: UIViewController {
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         
         loadData {
-            refreshControl.endRefreshing()
+            self.dispatchDelay(delay: 0.35, closure: {
+                self.refreshControl.endRefreshing()
+            })
         }
         
+    }
+    
+    func dispatchDelay(delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: closure)
     }
     
 
@@ -175,4 +180,14 @@ extension UINavigationItem {
         self.titleView = stackView
     }
     
+}
+
+extension UIRefreshControl {
+    func beginRefreshingManually() {
+        if let scrollView = superview as? UIScrollView {
+            scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y - frame.height), animated: true)
+        }
+        beginRefreshing()
+        sendActions(for: .valueChanged)
+    }
 }

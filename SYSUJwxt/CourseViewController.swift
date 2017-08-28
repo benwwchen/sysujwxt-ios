@@ -34,7 +34,7 @@ class CourseViewController: ListWithFilterViewController,
             if success, let courses = object as? [Course] {
                 self.courses.removeAll()
                 self.courses.append(contentsOf: courses)
-                self.courses.sort(by: { $0.day < $1.day })
+                self.courses.sort(by: { $0.day.dayNumber < $1.day.dayNumber })
                 self.countDays()
                 DispatchQueue.main.async {
                     self.coursesTableView.reloadData()
@@ -47,10 +47,10 @@ class CourseViewController: ListWithFilterViewController,
     func countDays() {
         dayCourses.removeAll()
         for course in courses {
-            if dayCourses[course.day] != nil {
-                dayCourses[course.day]?.append(course)
+            if dayCourses[course.day.dayNumber] != nil {
+                dayCourses[course.day.dayNumber]?.append(course)
             } else {
-                dayCourses[course.day] = [course]
+                dayCourses[course.day.dayNumber] = [course]
             }
         }
     }
@@ -89,9 +89,7 @@ class CourseViewController: ListWithFilterViewController,
         cell.courseNameLabel.text = course.name
         cell.locationLabel.text = course.location
         
-        if let dayString = course.dayString {
-            cell.timeLabel.text = "\(dayString)  \(course.startClass)-\(course.endClass)  \(course.duration)"
-        }
+        cell.timeLabel.text = "\(course.day.description)  \(course.startClass)-\(course.endClass)  \(course.duration)"
         
         return cell
     }
@@ -104,8 +102,15 @@ class CourseViewController: ListWithFilterViewController,
     @IBAction func exportButtonPressed(_ sender: UIBarButtonItem) {
         // Export courses to the calendar
         coursesExportManager.courses = self.courses
-        //coursesExportManager.export()
-        
+        coursesExportManager.authorize { (success, error) in
+            if success {
+                if let yearInt = Int(self.year.components(separatedBy: "-")[0]),
+                    let termInt = Int(self.term) {
+                    //self.coursesExportManager.export(year: yearInt, term: termInt)
+                }
+                self.coursesExportManager.deleteAll()
+            }
+        }
     }
     
     

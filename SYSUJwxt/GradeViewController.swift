@@ -20,24 +20,26 @@ class GradeViewController: ListWithFilterViewController,
     override func loadData(completion: (() -> Void)? = nil) {
         loadSavedFilterData()
         
-        var years = [Int]()
-        var terms = [Int]()
+        var isGetAll = false
+        var isGetAllTerms = false
+        var yearInt: Int = 0
+        var termInt: Int = 0
         
-        if year == "全部" {
-            years = jwxt.allYears
+        if self.year == "全部" {
+            isGetAll = true
         } else {
-            years = [Int(year.components(separatedBy: "-")[0])!]
+            yearInt = Int(self.year.components(separatedBy: "-")[0])!
         }
         
-        if term == "全部" {
-            terms = [1, 2, 3]
+        if self.term == "全部" {
+            isGetAllTerms = true
         } else {
-            terms = [Int(term)!]
+            termInt = Int(self.term)!
         }
         
         let coursesTypeValues = coursesType.map({ CourseType.fromString(string: $0) })
         
-        jwxt.getGradeList(years: years, terms: terms) { (success, object) in
+        jwxt.getGradeList(year: yearInt, term: termInt, isGetAll: isGetAll, isGetAllTerms: isGetAllTerms) { (success, object) in
             if success, let grades = object as? [Grade] {
                 self.grades.removeAll()
                 // filter a courseType and append to the table data
@@ -61,8 +63,6 @@ class GradeViewController: ListWithFilterViewController,
                 }
             }
         }
-        
-        
     }
     
     // MARK: Table Views
@@ -125,7 +125,7 @@ class GradeViewController: ListWithFilterViewController,
             let yearInt = Int(year.components(separatedBy: "-")[0]),
             let term = UserDefaults.standard.string(forKey: "notify.term") {
             // save current grades
-            jwxt.getGradeList(years: [yearInt], terms: [Int(term)!], completion: { (success, object) in
+            jwxt.getGradeList(year: yearInt, term: Int(term)!, completion: { (success, object) in
                 if success, let grades = object as? [Grade] {
                     UserDefaults.standard.set(grades, forKey: "monitorGrades")
                 }

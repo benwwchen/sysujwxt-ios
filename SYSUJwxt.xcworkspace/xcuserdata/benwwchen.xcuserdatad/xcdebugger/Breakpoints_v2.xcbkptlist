@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525414067.091346"
+            timestampString = "525596548.39123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "getCourseList(year:term:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525414370.890051"
+            timestampString = "525617198.180768"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "494"
-            endingLineNumber = "494"
+            startingLineNumber = "577"
+            endingLineNumber = "577"
             landmarkName = "clientURLRequest(method:urlString:params:data:isUemsJwxtApi:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525414370.890051"
+            timestampString = "525617198.180768"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "394"
-            endingLineNumber = "394"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
             landmarkName = "getGPA(year:term:isGetAll:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/GPATableViewController.swift"
-            timestampString = "524999089.37931"
+            timestampString = "525618591.695516"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
             <Locations>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/FilterTableViewController.swift"
-            timestampString = "525353220.014898"
+            timestampString = "525617866.287318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "termControlValueChanged(_:)"
             landmarkType = "7">
             <Locations>
@@ -282,11 +282,11 @@
                   moduleName = "SYSUJwxt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/FilterTableViewController.swift"
-                  timestampString = "525173185.023369"
+                  timestampString = "525618174.263148"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "161"
-                  endingLineNumber = "161"
+                  startingLineNumber = "215"
+                  endingLineNumber = "215"
                   offsetFromSymbolStart = "19">
                </Location>
                <Location
@@ -297,11 +297,11 @@
                   moduleName = "SYSUJwxt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/FilterTableViewController.swift"
-                  timestampString = "525173185.024488"
+                  timestampString = "525618174.264467"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "161"
-                  endingLineNumber = "161"
+                  startingLineNumber = "215"
+                  endingLineNumber = "215"
                   offsetFromSymbolStart = "226">
                </Location>
             </Locations>
@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/FilterTableViewController.swift"
-            timestampString = "525268920.18532"
+            timestampString = "525617691.252914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "loadFilterData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/FilterTableViewController.swift"
-            timestampString = "525353220.014898"
+            timestampString = "525617866.287318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -362,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/FilterTableViewController.swift"
-            timestampString = "525353220.014898"
+            timestampString = "525617866.287318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "numberOfSections(in:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -458,7 +458,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/GradeViewController.swift"
-            timestampString = "525415596.613368"
+            timestampString = "525619333.987541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
@@ -522,12 +522,12 @@
                   moduleName = "SYSUJwxt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/AppDelegate.swift"
-                  timestampString = "525415597.697103"
+                  timestampString = "525621047.608489"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "152"
-                  endingLineNumber = "152"
-                  offsetFromSymbolStart = "53">
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "52">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -537,12 +537,12 @@
                   moduleName = "SYSUJwxt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/AppDelegate.swift"
-                  timestampString = "525415597.698538"
+                  timestampString = "525621047.610194"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "152"
-                  endingLineNumber = "152"
-                  offsetFromSymbolStart = "416">
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "336">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -630,7 +630,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/AppDelegate.swift"
@@ -662,7 +662,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/AppDelegate.swift"
@@ -681,14 +681,78 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525414145.672861"
+            filePath = "SYSUJwxt/CoursesExportManager.swift"
+            timestampString = "525605620.017555"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "295"
-            endingLineNumber = "295"
-            landmarkName = "getGradeList(years:terms:completion:)"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "identifiers"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SYSUJwxt/CoursesExportManager.swift"
+            timestampString = "525605706.494103"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "export(year:term:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SYSUJwxt/GradeViewController.swift"
+            timestampString = "525619958.594313"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "loadData(completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SYSUJwxt.GradeViewController.(loadData (completion : Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()).(closure #2)"
+                  moduleName = "SYSUJwxt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/GradeViewController.swift"
+                  timestampString = "525620013.914874"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "1333">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SYSUJwxt.GradeViewController.(loadData (completion : Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()).(closure #2).(closure #3)"
+                  moduleName = "SYSUJwxt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/GradeViewController.swift"
+                  timestampString = "525620013.916049"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "27">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

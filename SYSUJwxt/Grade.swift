@@ -50,9 +50,7 @@ class Grade {
     //MARK: Initialization
     
     init?(json: [String: Any]) {
-        guard let name = json["kcmc"] as? String,
-            let lecturer = json["jsxm"] as? String,
-            let totalGradeString = json["zpcj"] as? String,
+        guard let totalGradeString = json["zpcj"] as? String,
             let totalGrade = Double(totalGradeString),
             let creditString = json["xf"] as? String,
             let credit = Double(creditString),
@@ -60,8 +58,6 @@ class Grade {
             let gpa = Double(gpaString),
             let periodString = json["xs"] as? String,
             let period = Double(periodString),
-            let rankingInTeachingClass = json["jxbpm"] as? String,
-            let rankingInMajorClass = json["njzypm"] as? String,
             let courseTypeString = json["kclb"] as? String,
             let courseTypeRaw = Int(courseTypeString),
             let courseType = CourseType(rawValue: courseTypeRaw),
@@ -73,14 +69,14 @@ class Grade {
                 return nil
         }
         
-        self.name = name
-        self.lecturer = lecturer
+        self.name = json["kcmc"] as? String ?? ""
+        self.lecturer = json["jsxm"] as? String ?? ""
         self.totalGrade = totalGrade
         self.credit = credit
         self.gpa = gpa
         self.period = period
-        self.rankingInTeachingClass = rankingInTeachingClass
-        self.rankingInMajorClass = rankingInMajorClass
+        self.rankingInTeachingClass = json["jxbpm"] as? String ?? "无"
+        self.rankingInMajorClass = json["njzypm"] as? String ?? "无"
         self.courseType = courseType
         self.year = year
         self.term = term

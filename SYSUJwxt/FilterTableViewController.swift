@@ -72,6 +72,8 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
         }
         if let coursesType = UserDefaults.standard.object(forKey: "\(filterType.rawValue).courseType") as? [String]  {
             self.coursesType = coursesType
+        } else {
+            self.coursesType = allCourseTypes
         }
         
         // populate the data
@@ -85,6 +87,16 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
         }
         
         if filterType == .grade {
+            if year == SelectTypes.All {
+                termSegmentedControl.selectedSegmentIndex = 3
+                if let title = termSegmentedControl.titleForSegment(at: termSegmentedControl.selectedSegmentIndex) {
+                    term = title
+                }
+                for i in 0..<3 {
+                    termSegmentedControl.setEnabled(false, forSegmentAt: i)
+                }
+            }
+            
             for i in 1..<tableView.numberOfRows(inSection: 2) {
                 if let cell = tableView.cellForRow(at: IndexPath(row: i, section: 2)),
                     let labelText = cell.textLabel?.text,
@@ -173,6 +185,20 @@ class FilterTableViewController: UITableViewController, UIPickerViewDelegate, UI
     func donePicker(sender: UIBarButtonItem) {
         yearTextField.resignFirstResponder()
         yearTableViewCell.setSelected(false, animated: true)
+        if year == SelectTypes.All {
+            termSegmentedControl.selectedSegmentIndex = 3
+            if let title = termSegmentedControl.titleForSegment(at: termSegmentedControl.selectedSegmentIndex) {
+                term = title
+            }
+            for i in 0..<3 {
+                termSegmentedControl.setEnabled(false, forSegmentAt: i)
+            }
+        } else {
+            for i in 0..<3 {
+                termSegmentedControl.setEnabled(true, forSegmentAt: i)
+            }
+        }
+        
     }
     
     func cancelPicker(sender: UIBarButtonItem) {

@@ -246,7 +246,7 @@ class JwxtApiClient {
                                         var offset = 0
                                         if tds.count < 8 {
                                             for course in courses {
-                                                if course.day <= index + offset &&
+                                                if course.day.dayNumber <= index + offset &&
                                                     course.startClass < courseTime[0] &&
                                                     course.endClass >= courseTime[0] {
                                                     offset += 1
@@ -254,7 +254,9 @@ class JwxtApiClient {
                                             }
                                         }
                                         
-                                        courses.append(Course.init(name: contents[0], location: contents[1], day: index + offset, startClass: courseTime[0], endClass: courseTime[1], duration: contents[3]))
+                                        if let course = Course(name: contents[0], location: contents[1], day: index + offset, startClass: courseTime[0], endClass: courseTime[1], duration: contents[3]) {
+                                            courses.append(course)
+                                        }
                                         
                                         print("\(contents)")
                                     }
@@ -287,31 +289,113 @@ class JwxtApiClient {
         }
     }
     
-    func getGradeList(years: [Int], terms: [Int], completion: @escaping (_ success: Bool, _ object: Any?) -> ()) {
+    func getGradeList(year: Int = 0, term: Int = 0, isGetAll: Bool = false, isGetAllTerms: Bool = false, completion: @escaping (_ success: Bool, _ object: Any?) -> ()) {
         
-        var grades = [Grade]()
-        var allSuccess = true
+        var isSuccess = true
         var message: String = Messages.Success
         
-        // use semaphore to wait until all requests on the same queue complete
-        let semaphore = DispatchSemaphore(value: 0)
+        var requestString: String
         
-        // and make the writes to the grades array serial
-        let queue = DispatchQueue(label: "getAllGradesQueue", attributes: .concurrent)
+        if isGetAll {
+            
+            // all grades of all school year
+            requestString = "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{kccjStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"kccjStore\",pageNumber:1,pageSize:2147483647,recordCount:18,rowSetName:\"pojo_com.neusoft.education.sysu.xscj.xscjcx.model.KccjModel\",order:\"t.xn, t.xq, t.kch, t.bzw\"}},parameters:{\"kccjStore-params\": [{\"name\": \"Filter_t.pylbm_0.270724877039809\", \"type\": \"String\", \"value\": \"'01'\", \"condition\": \" = \", \"property\": \"t.pylbm\"}], \"args\": [\"student\"]}}}"
+            
+        } else if isGetAllTerms {
+            
+            // all grades of a specific school year
+            let yearArg = "\(year)-\(year+1)"
+            requestString = "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{kccjStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"kccjStore\",pageNumber:1,pageSize:2147483647,recordCount:18,rowSetName:\"pojo_com.neusoft.education.sysu.xscj.xscjcx.model.KccjModel\",order:\"t.xn, t.xq, t.kch, t.bzw\"}},parameters:{\"kccjStore-params\": [{\"name\": \"Filter_t.pylbm_0.7714684730549379\", \"type\": \"String\", \"value\": \"'01'\", \"condition\": \" = \", \"property\": \"t.pylbm\"}, {\"name\": \"Filter_t.xn_0.486056247812079\", \"type\": \"String\", \"value\": \"'\(yearArg)'\", \"condition\": \" = \", \"property\": \"t.xn\"}], \"args\": [\"student\"]}}}"
+            
+        } else {
+            // a specific term
+            let yearArg = "\(year)-\(year+1)"
+            requestString = "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{kccjStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"kccjStore\",pageNumber:1,pageSize:2147483647,recordCount:2,rowSetName:\"pojo_com.neusoft.education.sysu.xscj.xscjcx.model.KccjModel\",order:\"t.xn, t.xq, t.kch, t.bzw\"}},parameters:{\"kccjStore-params\": [{\"name\": \"Filter_t.pylbm_0.44799381315381603\", \"type\": \"String\", \"value\": \"'01'\", \"condition\": \" = \", \"property\": \"t.pylbm\"}, {\"name\": \"Filter_t.xn_0.0365196628430034\", \"type\": \"String\", \"value\": \"'\(yearArg)'\", \"condition\": \" = \", \"property\": \"t.xn\"}, {\"name\": \"Filter_t.xq_0.6911378023825301\", \"type\": \"String\", \"value\": \"'\(term)'\", \"condition\": \" = \", \"property\": \"t.xq\"}], \"args\": [\"student\"]}}}"
+        }
+        
+        let request = self.clientURLRequest(method: "POST", urlString: Paths.BaseUrl + Paths.ScoreListPath, data: requestString, isUemsJwxtApi: true)
+        
+        var grades = [Grade]()
+        
+        customDataTask(request: request) { (success, object) in
+            
+            // append results to the array
+            
+            //print ("\(String(describing: NSString(data: object as! Data, encoding: String.Encoding.utf8.rawValue)))")
+            
+            do {
+                
+                if success, let string = String(data: object as! Data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
+                    
+                    guard let resultData = string.matchingStrings(regex: "\\{primary:(\\[.*\\])\\}").first?[1].data(using: .utf8) else {
+                        throw JwxtApiError.badResponse
+                    }
+                    
+                    // now we got the correct JSON format
+                    guard let json = (try? JSONSerialization.jsonObject(with: resultData, options: [])) as? [Any] else {
+                        throw JwxtApiError.badResponse
+                    }
+                    
+                    print("\(json)")
+                    
+                    
+                    for object in json {
+                        if let dict = object as? [String : Any],
+                            let grade = Grade.init(json: dict) {
+                            grades.append(grade)
+                        }
+                    }
+                    
+                    
+                }
+                
+            } catch {
+                
+                print("\(error)")
+                isSuccess = false
+                message = Messages.GetCoursesError
+                
+            }
+            
+            if isSuccess {
+                completion(isSuccess, grades)
+            } else {
+                completion(isSuccess, message)
+            }
+        }
+        
+        /* legacy code, for retriving grades individually
+         
+        // make the writes to the grades array serial
+        let retrieveGroup = DispatchGroup()
         
         for year in years {
             
+            var termsFixed = terms
+            if year >= 2016 && termsFixed.contains(3) {
+                termsFixed.remove(at: termsFixed.index(of: 3)!)
+            }
+            
             let yearArg = "\(year)-\(year+1)"
             
-            for term in terms {
-                let request = clientURLRequest(method: "POST", urlString: Paths.BaseUrl + Paths.ScoreListPath, data: "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{kccjStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"kccjStore\",pageNumber:1,pageSize:10,recordCount:0,rowSetName:\"pojo_com.neusoft.education.sysu.xscj.xscjcx.model.KccjModel\",order:\"t.xn, t.xq, t.kch, t.bzw\"}},parameters:{\"kccjStore-params\": [{\"name\": \"Filter_t.pylbm_0.7607312996540416\", \"type\": \"String\", \"value\": \"'01'\", \"condition\": \" = \", \"property\": \"t.pylbm\"}, {\"name\": \"Filter_t.xn_0.7704413492958447\", \"type\": \"String\", \"value\": \"'\(yearArg)'\", \"condition\": \" = \", \"property\": \"t.xn\"}, {\"name\": \"Filter_t.xq_0.40025491171181043\", \"type\": \"String\", \"value\": \"'\(term)'\", \"condition\": \" = \", \"property\": \"t.xq\"}], \"args\": [\"student\"]}}}", isUemsJwxtApi: true)
+            for term in termsFixed {
                 
-                customDataTask(request: request) { (success, object) in
+                retrieveGroup.enter()
+                
+                DispatchQueue.global(qos: .userInitiated).async {
                     
-                    // append results to the array serially
-                    queue.async(flags: .barrier) {
+                    // avoid same responses from server
+                    //usleep(1000000)
+                    
+                    let request = self.clientURLRequest(method: "POST", urlString: Paths.BaseUrl + Paths.ScoreListPath, data: "{header:{\"code\": -100, \"message\": {\"title\": \"\", \"detail\": \"\"}},body:{dataStores:{kccjStore:{rowSet:{\"primary\":[],\"filter\":[],\"delete\":[]},name:\"kccjStore\",pageNumber:1,pageSize:10,recordCount:0,rowSetName:\"pojo_com.neusoft.education.sysu.xscj.xscjcx.model.KccjModel\",order:\"t.xn, t.xq, t.kch, t.bzw\"}},parameters:{\"kccjStore-params\": [{\"name\": \"Filter_t.pylbm_0.7607312996540416\", \"type\": \"String\", \"value\": \"'01'\", \"condition\": \" = \", \"property\": \"t.pylbm\"}, {\"name\": \"Filter_t.xn_0.7704413492958447\", \"type\": \"String\", \"value\": \"'\(yearArg)'\", \"condition\": \" = \", \"property\": \"t.xn\"}, {\"name\": \"Filter_t.xq_0.40025491171181043\", \"type\": \"String\", \"value\": \"'\(term)'\", \"condition\": \" = \", \"property\": \"t.xq\"}], \"args\": [\"student\"]}}}", isUemsJwxtApi: true)
+                    
+                    
+                    
+                    self.customDataTask(request: request) { (success, object) in
                         
-                        print ("\(String(describing: NSString(data: object as! Data, encoding: String.Encoding.utf8.rawValue)))")
+                        // append results to the array
+
+                        //print ("\(String(describing: NSString(data: object as! Data, encoding: String.Encoding.utf8.rawValue)))")
                         
                         do {
                             
@@ -347,25 +431,24 @@ class JwxtApiClient {
                             
                         }
                         
-                        semaphore.signal()
-                            
+                        retrieveGroup.leave()
                     }
                 }
             }
         }
         
-        
-        // wait for all requests to be handled
-        for _ in 0..<years.count*terms.count {
-            _ = semaphore.wait(timeout: .distantFuture)
+        retrieveGroup.notify(queue: DispatchQueue.main) {
+            
+            // collect all
+            if allSuccess {
+                completion(allSuccess, grades)
+            } else {
+                completion(allSuccess, message)
+            }
         }
+         
+        */
         
-        // collect all
-        if allSuccess {
-            completion(allSuccess, grades)
-        } else {
-            completion(allSuccess, message)
-        }
     }
     
     func getGPA(year: Int = 0, term: Int = 0, isGetAll: Bool = false, completion: @escaping (_ success: Bool, _ object: Any?) -> ()) {
