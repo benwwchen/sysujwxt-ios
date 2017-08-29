@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>中大小教务</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -18,8 +20,6 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>需要访问你的日历数据以添加课程表到你的日历</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -37,6 +37,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>需要访问你的日历数据以添加课程表到您的日历</string>
+	<key>NSContactsUsageDescription</key>
+	<string>访问共享日历需要您的通讯录权限</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

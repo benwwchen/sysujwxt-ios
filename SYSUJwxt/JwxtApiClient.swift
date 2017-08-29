@@ -24,6 +24,9 @@ class JwxtApiClient {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "isSavePassword")
+            if !isSavePassword {
+                deletePassword()
+            }
         }
     }
     
@@ -136,6 +139,13 @@ class JwxtApiClient {
                 print("\(message)")
             }
 
+        }
+    }
+    
+    func logout() {
+        let cookieStore = HTTPCookieStorage.shared
+        for cookie in cookieStore.cookies ?? [] {
+            cookieStore.deleteCookie(cookie)
         }
     }
     
@@ -625,6 +635,24 @@ class JwxtApiClient {
             }
         }
         return false
+    }
+    
+    func deletePassword() {
+        // Getting netId from UserDefaults
+        guard let netId = UserDefaults.standard.string(forKey: "netId") else {
+            return
+        }
+        // Deleting password into Keychain
+        let passwordData: NSData = NSKeyedArchiver.archivedData(withRootObject: self.password) as NSData
+        let userAccount = netId
+        let identifier = "sysujwxt"
+        let keychainQuery: [NSString: NSObject] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccount: userAccount as NSObject,
+            kSecAttrService: identifier as NSObject,
+            kSecValueData: passwordData,
+            kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock]
+        SecItemDelete(keychainQuery as CFDictionary) // delete the item from Keychain
     }
     
 }

@@ -185,6 +185,7 @@ class CoursesExportManager {
                 }
             }
         }
+        identifiers.removeAll()
         completion?(true, Messages.DeleteSuccess)
     }
 }

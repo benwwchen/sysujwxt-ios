@@ -9,22 +9,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525625791.112894"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
-            landmarkName = "getInfo(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/FirstViewController.swift"
             timestampString = "524765939.244996"
             startingColumnNumber = "9223372036854775807"
@@ -42,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525625791.112894"
+            timestampString = "525690000.810925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
             landmarkName = "getCourseList(year:term:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/LoginViewController.swift"
-            timestampString = "525348802.782125"
+            timestampString = "525688242.965229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525625791.112894"
+            timestampString = "525690000.810925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "578"
-            endingLineNumber = "578"
+            startingLineNumber = "588"
+            endingLineNumber = "588"
             landmarkName = "clientURLRequest(method:urlString:params:data:isUemsJwxtApi:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525625791.112894"
+            timestampString = "525690000.810925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "478"
-            endingLineNumber = "478"
+            startingLineNumber = "488"
+            endingLineNumber = "488"
             landmarkName = "getGPA(year:term:isGetAll:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -378,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/LoginViewController.swift"
-            timestampString = "525348802.782125"
+            timestampString = "525688242.965229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "textFieldShouldReturn(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -521,13 +505,13 @@
                   symbolName = "function signature specialization &lt;Arg[2] = Value Promoted from Box&gt; of SYSUJwxt.AppDelegate.(checkUpdates (jwxt : SYSUJwxt.JwxtApiClient, completion : (__C.UIBackgroundFetchResult) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "SYSUJwxt"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/BenWwChen/Developer/iOS/sysujwxt-ios/SYSUJwxt/AppDelegate.swift"
-                  timestampString = "525633924.66328"
+                  urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/AppDelegate.swift"
+                  timestampString = "525692485.368591"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "155"
                   endingLineNumber = "155"
-                  offsetFromSymbolStart = "53">
+                  offsetFromSymbolStart = "52">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -536,13 +520,13 @@
                   symbolName = "function signature specialization &lt;Arg[2] = Value Promoted from Box&gt; of SYSUJwxt.AppDelegate.(checkUpdates (jwxt : SYSUJwxt.JwxtApiClient, completion : (__C.UIBackgroundFetchResult) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "SYSUJwxt"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/BenWwChen/Developer/iOS/sysujwxt-ios/SYSUJwxt/AppDelegate.swift"
-                  timestampString = "525633924.66573"
+                  urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/AppDelegate.swift"
+                  timestampString = "525692485.369798"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "155"
                   endingLineNumber = "155"
-                  offsetFromSymbolStart = "416">
+                  offsetFromSymbolStart = "336">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -761,13 +745,13 @@
                   symbolName = "SYSUJwxt.CoursesExportManager.export (completion : (Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
                   moduleName = "SYSUJwxt"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/BenWwChen/Developer/iOS/sysujwxt-ios/SYSUJwxt/CoursesExportManager.swift"
-                  timestampString = "525633924.682631"
+                  urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/CoursesExportManager.swift"
+                  timestampString = "525692485.378512"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "103"
                   endingLineNumber = "103"
-                  offsetFromSymbolStart = "327">
+                  offsetFromSymbolStart = "296">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -776,13 +760,13 @@
                   symbolName = "SYSUJwxt.CoursesExportManager.(export (completion : (Swift.Bool, Swift.String) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "SYSUJwxt"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/BenWwChen/Developer/iOS/sysujwxt-ios/SYSUJwxt/CoursesExportManager.swift"
-                  timestampString = "525633924.685244"
+                  urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/CoursesExportManager.swift"
+                  timestampString = "525692485.379698"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "103"
                   endingLineNumber = "103"
-                  offsetFromSymbolStart = "26">
+                  offsetFromSymbolStart = "24">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -816,6 +800,118 @@
             startingLineNumber = "105"
             endingLineNumber = "105"
             landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SYSUJwxt/LoginViewController.swift"
+            timestampString = "525688820.010773"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "tryLogin(netId:password:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SYSUJwxt.LoginViewController.tryLogin (netId : Swift.String, password : Swift.String) -&gt; ()"
+                  moduleName = "SYSUJwxt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/LoginViewController.swift"
+                  timestampString = "525692485.386417"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "836">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SYSUJwxt.LoginViewController.(tryLogin (netId : Swift.String, password : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "SYSUJwxt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/benwwchen/Developer/iOS/sysujwxt-ios/SYSUJwxt/LoginViewController.swift"
+                  timestampString = "525692485.387611"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SYSUJwxt/LoginViewController.swift"
+            timestampString = "525688870.694735"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "loginButtonPressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SYSUJwxt/JwxtApiClient.swift"
+            timestampString = "525690000.810925"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "login(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SYSUJwxt/JwxtApiClient.swift"
+            timestampString = "525690000.810925"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "realLogin(form:formAction:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SYSUJwxt/JwxtApiClient.swift"
+            timestampString = "525689880.798628"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
+            landmarkName = "getInfo(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

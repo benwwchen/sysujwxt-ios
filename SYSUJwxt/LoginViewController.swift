@@ -10,7 +10,8 @@ import UIKit
 import os.log
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
-
+    
+    @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var netIdTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -37,6 +38,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 if success {
                     self.continueToMainVC()
                 } else {
+                    self.messageLabel.setView(hidden: false)
                     self.loginFormStackView.setView(hidden: false)
                     self.loadingIndicator.stopAnimating()
                     self.loadingStackView.setView(hidden: true)
@@ -69,6 +71,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // set up views
         loadingIndicator.hidesWhenStopped = true
         loadingStackView.setView(hidden: true)
+        messageLabel.setView(hidden: true)
         
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50))
         toolbar.barStyle = .default
@@ -129,6 +132,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func savePasswordSwitchValueChanged(_ sender: UISwitch) {
         
         jwxt.isSavePassword = sender.isOn
+        
+    }
+    
+    @IBAction func unwindToLoginViewController(sender: UIStoryboardSegue) {
+        
+        messageLabel.isHidden = true
+        loginFormStackView.setView(hidden: false)
+        loadingStackView.setView(hidden: true)
+        savePasswordSwitch.setOn(jwxt.isSavePassword, animated: true)
         
     }
     

@@ -15,6 +15,7 @@
 		372E5BCE1F5474DD00382587 /* CourseExportTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E5BCD1F5474DD00382587 /* CourseExportTableViewController.swift */; };
 		372E5BD01F54943100382587 /* CreateNewCalendarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E5BCF1F54943100382587 /* CreateNewCalendarTableViewController.swift */; };
 		37346C431F51C3B8002725B9 /* CoursesExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37346C421F51C3B8002725B9 /* CoursesExportManager.swift */; };
+		373B21AF1F55736400C07833 /* MoreDetailWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373B21AE1F55736400C07833 /* MoreDetailWebViewController.swift */; };
 		37437E731F45731900E60BB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E721F45731900E60BB6 /* AppDelegate.swift */; };
 		37437E751F45731900E60BB6 /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E741F45731900E60BB6 /* CourseViewController.swift */; };
 		37437E771F45731900E60BB6 /* GradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37437E761F45731900E60BB6 /* GradeViewController.swift */; };
@@ -56,6 +57,7 @@
 		372E5BCF1F54943100382587 /* CreateNewCalendarTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNewCalendarTableViewController.swift; sourceTree = "<group>"; };
 		37346C411F51BFA0002725B9 /* SYSUJwxt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SYSUJwxt.entitlements; sourceTree = "<group>"; };
 		37346C421F51C3B8002725B9 /* CoursesExportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesExportManager.swift; sourceTree = "<group>"; };
+		373B21AE1F55736400C07833 /* MoreDetailWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreDetailWebViewController.swift; sourceTree = "<group>"; };
 		37437E6F1F45731900E60BB6 /* SYSUJwxt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SYSUJwxt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37437E721F45731900E60BB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37437E741F45731900E60BB6 /* CourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
@@ -121,7 +123,7 @@
 				372E5BD11F54944000382587 /* Course */,
 				372E5BD21F54944E00382587 /* Grade */,
 				37BADCB01F4AD5D400A74CCB /* GPATableViewController.swift */,
-				371044FA1F4EC0940014A26B /* MoreTableViewController.swift */,
+				373B31911F556F9E007A1A51 /* More */,
 				37BADCB61F4AFB2E00A74CCB /* FilterViewController.swift */,
 				37BADCB81F4AFB7A00A74CCB /* FilterTableViewController.swift */,
 				371044FC1F4EEE9F0014A26B /* ListWithFilterViewController.swift */,
@@ -155,6 +157,15 @@
 				371044FE1F4F04E60014A26B /* NotifySettingTableViewController.swift */,
 			);
 			name = Grade;
+			sourceTree = "<group>";
+		};
+		373B31911F556F9E007A1A51 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				371044FA1F4EC0940014A26B /* MoreTableViewController.swift */,
+				373B21AE1F55736400C07833 /* MoreDetailWebViewController.swift */,
+			);
+			name = More;
 			sourceTree = "<group>";
 		};
 		37437E661F45731900E60BB6 = {
@@ -463,6 +474,7 @@
 				37BADCB31F4ADFDF00A74CCB /* DayOfWeek.swift in Sources */,
 				37437E771F45731900E60BB6 /* GradeViewController.swift in Sources */,
 				37BADCB71F4AFB2E00A74CCB /* FilterViewController.swift in Sources */,
+				373B21AF1F55736400C07833 /* MoreDetailWebViewController.swift in Sources */,
 				37437E971F457E2B00E60BB6 /* Course.swift in Sources */,
 				37BADCB91F4AFB7A00A74CCB /* FilterTableViewController.swift in Sources */,
 				372543271F495BE80004BB36 /* GradeTableViewCell.swift in Sources */,
