@@ -31,10 +31,37 @@ class CourseExportTableViewController: UITableViewController, EKCalendarChooserD
         super.viewDidLoad()
         coursesExportManager.authorize { (success, error) in
             if success {
-                // maybe nothing need to be done?
+                // clear chosen calendar
+                self.coursesExportManager.chosenCalendar = nil
             } else {
-                // Alert fail
-                // Navigate user to settings
+                // Alert fail and navigate user to settings
+                self.alert(title: AlertTitles.PermissionDenied, message: AlertTitles.CalendarPermissionRequest, titleDefault: AlertTitles.Settings, titleCancel: AlertTitles.Cancel, handler: { (action) in
+                    DispatchQueue.main.async {
+                        switch action.style {
+                        case .default:
+                            
+                            // go to settings
+                            
+                            if #available(iOS 10.0, *) {
+                                UIApplication.shared.open(URL(string: "App-prefs:root=com.bencww.SYSUJwxt")!, completionHandler: { (success) in
+                                    self.dismiss(animated: true, completion: nil)
+                                })
+                            } else {
+                                if !UIApplication.shared.openURL(URL(string: "prefs:root=com.bencww.SYSUJwxt")!) {
+                                    UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+                                }
+                                
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                            
+                            break
+                        case .cancel:
+                            self.dismiss(animated: true, completion: nil)
+                            break
+                        default: break
+                        }
+                    }
+                })
             }
         }
     }
@@ -63,10 +90,16 @@ class CourseExportTableViewController: UITableViewController, EKCalendarChooserD
             if cell === exportCell {
                 coursesExportManager.export(completion: { (success, message) in
                     if success {
+                        
                         // Alert success
-                        dismiss(animated: true, completion: nil)
+                        self.alert(title: message.0, message: message.1, titleDefault: AlertTitles.Default, handler: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        })
+                        
                     } else {
+                        
                         // Alert fail
+                        self.alert(title: message.0, message: message.1, titleCancel: AlertTitles.Cancel, handler: nil)
                     }
                 })
             }
@@ -74,7 +107,15 @@ class CourseExportTableViewController: UITableViewController, EKCalendarChooserD
             if cell === deleteAllCell {
                 coursesExportManager.deleteAll(completion: { (success, message) in
                     if success {
+                        
                         // Alert success
+                        self.alert(title: message.0, message: message.1, titleDefault: AlertTitles.Default, handler: nil)
+                        
+                    } else {
+                        
+                        // Alert fail
+                        self.alert(title: message.0, message: message.1, titleCancel: AlertTitles.Cancel, handler: nil)
+                        
                     }
                 })
             }

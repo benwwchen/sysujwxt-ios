@@ -181,8 +181,8 @@ class NotifySettingTableViewController: UITableViewController, UIPickerViewDeleg
     
     @IBAction func switchValueChanged(_ sender: UISwitch) {
         isNotifyOn = sender.isOn
-        if isNotifyOn {
-            LocalNotification.registerForLocalNotification(on: UIApplication.shared)
+        if sender.isOn {
+            LocalNotification.registerForLocalNotification(on: UIApplication.shared, currentViewController: self)
         }
         tableView.reloadData()
     }

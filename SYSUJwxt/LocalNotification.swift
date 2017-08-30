@@ -13,7 +13,7 @@ import UserNotifications
 
 class LocalNotification: NSObject, UNUserNotificationCenterDelegate {
     
-    class func registerForLocalNotification(on application:UIApplication) {
+    class func registerForLocalNotification(on application:UIApplication, currentViewController: UIViewController) {
         if (UIApplication.instancesRespond(to: #selector(UIApplication.registerUserNotificationSettings(_:)))) {
             
             if #available(iOS 10.0, *) {
@@ -22,7 +22,25 @@ class LocalNotification: NSObject, UNUserNotificationCenterDelegate {
                     if granted {
                         print("用户允许")
                     } else {
-                        print("用户不允许")
+                        // Alert fail and navigate user to settings
+                        currentViewController.alert(title: AlertTitles.PermissionDenied, message: AlertTitles.NotificationPermissionRequest, titleDefault: AlertTitles.Settings, titleCancel: AlertTitles.Cancel, handler: { (action) in
+                            DispatchQueue.main.async {
+                                switch action.style {
+                                case .default:
+                                    
+                                    // go to settings
+                                    UIApplication.shared.open(URL(string: "App-prefs:root=com.bencww.SYSUJwxt")!, completionHandler: { (success) in
+                                        currentViewController.dismiss(animated: true, completion: nil)
+                                    })
+                                    
+                                    break
+                                case .cancel:
+                                    currentViewController.dismiss(animated: true, completion: nil)
+                                    break
+                                default: break
+                                }
+                            }
+                        })
                     }
                 }
                 
@@ -33,6 +51,29 @@ class LocalNotification: NSObject, UNUserNotificationCenterDelegate {
                 
                 //registerting for the notification.
                 application.registerUserNotificationSettings(UIUserNotificationSettings(types:[.sound, .alert, .badge], categories: nil))
+                
+                
+                // check if the notification setting is on
+                let notificationType = UIApplication.shared.currentUserNotificationSettings?.types
+                
+                if notificationType?.rawValue == 0 {
+                    currentViewController.alert(title: AlertTitles.PermissionDenied, message: AlertTitles.NotificationPermissionRequest, titleDefault: AlertTitles.Settings, titleCancel: AlertTitles.Cancel, handler: { (action) in
+                        DispatchQueue.main.async {
+                            switch action.style {
+                            case .default:
+                                
+                                // go to settings
+                                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+                                
+                                break
+                            case .cancel:
+                                currentViewController.dismiss(animated: true, completion: nil)
+                                break
+                            default: break
+                            }
+                        }
+                    })
+                }
             }
         }
     }

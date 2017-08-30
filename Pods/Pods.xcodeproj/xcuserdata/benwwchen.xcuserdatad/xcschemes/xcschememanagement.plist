@@ -4,7 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Kanna.xcscheme</key>
+		<key>Kanna-iOS10.3.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Kanna-iOS9.0.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4D10E4FF5A483B852B47CCA0B994E340</key>
+		<key>9630A7C5B0624D38B45CA74BF851AF70</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7092AFA801413CB0DFF0FBD7F433C9BA</key>
+		<key>B12718E53470CBE64DAB3340DBE75413</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CA98B13386B3D552C51F5928F6B43DFE</key>
+		<key>EDA6AA970B69DA292C19C6D0CA55BC11</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F27847A085F114C8423947E0251DD118</key>
 		<dict>
 			<key>primary</key>
 			<true/>

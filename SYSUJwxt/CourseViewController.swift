@@ -112,6 +112,14 @@ class CourseViewController: ListWithFilterViewController,
         }
     }
     
+    override func unwindToMainViewController(sender: UIStoryboardSegue) {
+        super.unwindToMainViewController(sender: sender)
+        
+        if (sender.source as? UINavigationController)?.topViewController is CourseExportTableViewController {
+            isUnwindingFromFilter = false
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

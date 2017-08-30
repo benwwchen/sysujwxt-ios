@@ -119,6 +119,14 @@ class GradeViewController: ListWithFilterViewController,
     override func unwindToMainViewController(sender: UIStoryboardSegue) {
         super.unwindToMainViewController(sender: sender)
         
+        if sender.source is UINavigationController {
+            print("nav")
+        }
+        
+        if sender.source is NotifySettingTableViewController {
+            print("notify")
+        }
+        
         // save current grades if notification is on
         if let _ = (sender.source as? UINavigationController)?.topViewController as? NotifySettingTableViewController,
             let year = UserDefaults.standard.string(forKey: "notify.year"),
@@ -130,6 +138,7 @@ class GradeViewController: ListWithFilterViewController,
                     UserDefaults.standard.set(grades, forKey: "monitorGrades")
                 }
             })
+            isUnwindingFromFilter = false
         }
     }
 

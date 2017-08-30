@@ -14,7 +14,7 @@ class ListWithFilterViewController: UIViewController {
     var headerTitle: String = ""
     var filterType: FilterType = .none
     let jwxt = JwxtApiClient.shared
-    var isUnwinding = false
+    var isUnwindingFromFilter = false
     
     // get the saved value or init it
     var year: String = ""
@@ -94,9 +94,9 @@ class ListWithFilterViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if isUnwinding {
+        if isUnwindingFromFilter {
             refreshControl.beginRefreshingManually()
-            isUnwinding = false
+            isUnwindingFromFilter = false
         }
     }
 
@@ -111,7 +111,7 @@ class ListWithFilterViewController: UIViewController {
         loadSavedFilterData()
         setTitle()
         
-        isUnwinding = true
+        isUnwindingFromFilter = true
     }
     
     lazy var refreshControl: UIRefreshControl = {

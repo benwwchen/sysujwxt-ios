@@ -158,6 +158,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+        
+        if let destination = (segue.destination as? UINavigationController)?.topViewController as? MoreDetailWebViewController {
+            
+            destination.title = "说明"
+            destination.htmlFileName = "explanation"
+            
+        }
     }
 
 }

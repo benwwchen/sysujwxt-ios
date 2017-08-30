@@ -50,10 +50,11 @@ class CoursesExportManager {
     
     struct Messages {
         static let NotSupported = "暂不支持2017学年前课程表"
-        static let NoChosenCalendar = "还未选择要导出到的日历"
+        static let NoChosenCalendar = "还未选择要导出到的日历😅"
         static let BadData = "课程数据有问题，导出不了😅"
-        static let CommitError = "无法提交修改，请检查是否已打开日历权限"
+        static let CommitError = "无法提交修改，请检查是否已打开日历权限😅"
         static let ExportSuccess = "导出完成"
+        static let ExportFail = "导出失败"
         static let DeleteSuccess = "已删除"
     }
     
@@ -91,11 +92,11 @@ class CoursesExportManager {
         return eventStore.calendars(for: .event)
     }
     
-    func export(completion: (Bool, String) -> Void) {
+    func export(completion: (Bool, (String, String)) -> Void) {
         
         if year < 2017 {
             // not supported yet
-            completion(false, Messages.NotSupported)
+            completion(false, (Messages.ExportFail, Messages.NotSupported))
         }
         
         for course in self.courses {
@@ -105,7 +106,7 @@ class CoursesExportManager {
             guard let startWeek = Int(cleanDuration.components(separatedBy: "-")[0]),
                 let endWeek = Int(cleanDuration.components(separatedBy: "-")[1]),
                 let weekDay = course.day.ekDayOfWeek else {
-                completion(false, Messages.BadData)
+                completion(false, (Messages.ExportFail, Messages.BadData))
                 return
             }
             
@@ -120,7 +121,7 @@ class CoursesExportManager {
                 let startDate = openningDate.startOfWeek?.shift(week: startWeek - 1, day: course.day.dayNumber, hour: startHour, minute: startMinute),
                 let endHour = course.endTime?.0,
                 let endMinute = course.endTime?.1 else {
-                completion(false, Messages.BadData)
+                completion(false, (Messages.ExportFail, Messages.BadData))
                 return
             }
             
@@ -130,7 +131,7 @@ class CoursesExportManager {
             if let chosenCalendar = chosenCalendar {
                 event.calendar = chosenCalendar
             } else {
-                completion(false, Messages.BadData)
+                completion(false, (Messages.ExportFail, Messages.NoChosenCalendar))
                 return
             }
             
@@ -165,15 +166,15 @@ class CoursesExportManager {
                 
                 // roll back
                 deleteAll(completion: nil)
-                completion(false, Messages.CommitError)
+                completion(false, (Messages.ExportFail, Messages.CommitError))
             }
             
         }
         
-        completion(true, Messages.ExportSuccess)
+        completion(true, (Messages.ExportSuccess, "已导出\(courses.count)门课程到系统日历"))
     }
     
-    func deleteAll(completion: ((Bool, String) -> Void)? = nil) {
+    func deleteAll(completion: ((Bool, (String, String)) -> Void)? = nil) {
         for identifier in identifiers {
             print(identifier)
             if let event = eventStore.event(withIdentifier: identifier) {
@@ -185,8 +186,9 @@ class CoursesExportManager {
                 }
             }
         }
+        let count = identifiers.count
         identifiers.removeAll()
-        completion?(true, Messages.DeleteSuccess)
+        completion?(true, (Messages.DeleteSuccess, "已从系统日历中移除\(count)门课程"))
     }
 }
 

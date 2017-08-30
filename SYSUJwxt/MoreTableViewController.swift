@@ -58,13 +58,15 @@ class MoreTableViewController: UITableViewController {
             switch identifier {
                 case "DesriptionSegue":
                     destination.title = "说明"
-                    destination.url = "https://blog.bencww.com"
+                    destination.htmlFileName = "explanation"
                     break
                 case "AboutSegue":
                     destination.title = "关于"
+                    destination.htmlFileName = "about"
                     break
                 case "AcknowlegementSegue":
                     destination.title = "致谢"
+                    destination.htmlFileName = "acknowledgement"
                     break
                 default:
                     break

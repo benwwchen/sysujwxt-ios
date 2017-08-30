@@ -48,7 +48,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        
 //        self.window?.makeKeyAndVisible()
         
-        UIView.appearance().tintColor = UIColor(colorLiteralRed: 30/255.0, green: 148/255.0, blue: 57/255.0, alpha: 1)
+        UIWindow.appearance().tintColor = UIColor(colorLiteralRed: 33/255.0, green: 140/255.0, blue: 58/255.0, alpha: 1)
+        
+        UITabBar.appearance().tintColor = UIWindow.appearance().tintColor
         
         return true
     }
