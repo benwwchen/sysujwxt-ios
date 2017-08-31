@@ -30,6 +30,7 @@
 		378C16981F56BF1D009EAD34 /* acknowledgement.html in Resources */ = {isa = PBXBuildFile; fileRef = 378C16971F56BF1D009EAD34 /* acknowledgement.html */; };
 		378C169C1F56C9ED009EAD34 /* explanation.html in Resources */ = {isa = PBXBuildFile; fileRef = 378C169B1F56C9ED009EAD34 /* explanation.html */; };
 		378C169E1F56CA13009EAD34 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 378C169D1F56CA13009EAD34 /* about.html */; };
+		3794C3331F57F85800E43F57 /* timetable.html in Resources */ = {isa = PBXBuildFile; fileRef = 3794C3321F57F85800E43F57 /* timetable.html */; };
 		37A7F0B41F49500200BBEABE /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A7F0B31F49500200BBEABE /* Grade.swift */; };
 		37BADCB11F4AD5D400A74CCB /* GPATableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BADCB01F4AD5D400A74CCB /* GPATableViewController.swift */; };
 		37BADCB31F4ADFDF00A74CCB /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BADCB21F4ADFDF00A74CCB /* DayOfWeek.swift */; };
@@ -82,6 +83,7 @@
 		378C169D1F56CA13009EAD34 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		378C169F1F56E1A3009EAD34 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		378C16A01F56E1A3009EAD34 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		3794C3321F57F85800E43F57 /* timetable.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = timetable.html; sourceTree = "<group>"; };
 		37A7F0B31F49500200BBEABE /* Grade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
 		37BADCB01F4AD5D400A74CCB /* GPATableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPATableViewController.swift; sourceTree = "<group>"; };
 		37BADCB21F4ADFDF00A74CCB /* DayOfWeek.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				378C16971F56BF1D009EAD34 /* acknowledgement.html */,
 				378C169B1F56C9ED009EAD34 /* explanation.html */,
 				378C169D1F56CA13009EAD34 /* about.html */,
+				3794C3321F57F85800E43F57 /* timetable.html */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				37437E7A1F45731900E60BB6 /* Main.storyboard in Resources */,
 				378C16981F56BF1D009EAD34 /* acknowledgement.html in Resources */,
 				378C169C1F56C9ED009EAD34 /* explanation.html in Resources */,
+				3794C3331F57F85800E43F57 /* timetable.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,10 +13,8 @@ body {
   font-family: "SF Pro SC","SF Pro Text","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif;
   font-size: 14px;
   line-height: 1.6;
-  padding-top: 10px;
-  padding-bottom: 10px;
   background-color: white;
-  padding: 24px; }
+  padding: 16px 0 16px; }
 
 body > *:first-child {
   margin-top: 0 !important; }
@@ -80,7 +78,11 @@ h3 {
   font-size: 18px; }
 
 h4 {
-  font-size: 16px; }
+  display: inline-block;
+  width: 16px;
+  font-size: 16px;
+  font-weight: normal;
+  margin: 12px auto 8px }
 
 h5 {
   font-size: 14px; }
@@ -162,6 +164,8 @@ blockquote {
     margin-bottom: 0; }
 
 table {
+  width: 240px;
+  margin: 32px auto;
   padding: 0;border-collapse: collapse; }
   table tr {
     border-top: 1px solid #cccccc;
@@ -174,11 +178,11 @@ table {
       font-weight: bold;
       border: 1px solid #cccccc;
       margin: 0;
-      padding: 6px 13px; }
+      padding: 5px 13px; }
     table tr td {
       border: 1px solid #cccccc;
       margin: 0;
-      padding: 6px 13px; }
+      padding: 5px 13px; }
     table tr th :first-child, table tr td :first-child {
       margin-top: 0; }
     table tr th :last-child, table tr td :last-child {
@@ -328,21 +332,71 @@ kbd {
 
 <body>
 
-<h2 id="toc_0">说明</h2>
+<table>
+<tbody>
+<tr>
+<td rowspan="4"><h4 id="toc_0">上午</h4></td>
+<td>第一节</td>
+<td style="text-align: center">08:00~08:45</td>
+</tr>
+<tr>
+<td>第二节</td>
+<td style="text-align: center">08:55~09:40</td>
+</tr>
+<tr>
+<td>第三节</td>
+<td style="text-align: center">10:00~10:45</td>
+</tr>
+<tr>
+<td>第四节</td>
+<td style="text-align: center">10:55~11:40</td>
+</tr>
+</tbody>
+</table>
 
-<h4 id="toc_1">这是什么 App ？</h4>
+<table>
+<tbody>
+<tr>
+<td rowspan="4"><h4 id="toc_1">下午</h4></td>
+<td>第五节</td>
+<td style="text-align: center">14:20~15:05</td>
+</tr>
+<tr>
+<td>第六节</td>
+<td style="text-align: center">15:15~16:00</td>
+</tr>
+<tr>
+<td>第七节</td>
+<td style="text-align: center">16:20~17:05</td>
+</tr>
+<tr>
+<td>第八节</td>
+<td style="text-align: center">17:15~18:00</td>
+</tr>
+</tbody>
+</table>
 
-<p>因为学校的<a href="http://uems.sysu.edu.cn/jwxt/">官方教务系统</a>只能用 IE 才能访问（不过听说即将会有新的教务系统），于是前辈们开发了<a href="http://wjw.sysu.edu.cn/">学生微教务</a>，让大家可以方便地查成绩、课表、学分、绩点。</p>
-
-<p>这个 App 在学生微教务的基本功能基础上，加入了<strong>导出课表到系统日历</strong>📆、<strong>成绩提醒</strong>🎊等功能。</p>
-
-<h4 id="toc_2">这个 App 安全吗？</h4>
-
-<p>这个 App 直连学校官方教务系统的接口，不经任何服务器中转，密码也只会保存在你的手机上🔐，所以就<strong>和你访问学校官方教务系统的安全性一样</strong>。我（开发者）是没有办法看到你的 NetID 或密码的🙈。</p>
-
-<h4 id="toc_3">我遇到 Bug 了 / 我有建议</h4>
-
-<p>发邮件告诉我吧😅：<a href="mailto:xjw@bencww.com">xjw@bencww.com</a></p>
+<table>
+<tbody>
+<tr>
+<td rowspan="4"><h4 id="toc_2">晚上</h4></td>
+<td>第九节</td>
+<td style="text-align: center">19:00~19:45</td>
+</tr>
+<tr>
+<td>第十节</td>
+<td style="text-align: center">19:55~20:40</td>
+</tr>
+<tr>
+<td>第十一节</td>
+<td style="text-align: center">20:50~21:35</td>
+</tr>
+<tr>
+<td>教室熄灯</td>
+<td style="text-align: center">22:30</td>
+</tr>
+</tbody>
+</table>
 
 
 

@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import SafariServices
 
 class MoreTableViewController: UITableViewController {
     
     // MARK: Properties
     var jwxt = JwxtApiClient.shared
     
+    // MARK: Constants
+    struct Constants {
+        static let DesignerWebsite = "https://www.behance.net/hula3"
+        static let GitHubLink = "https://github.com/benwwchen/sysujwxt-ios"
+    }
     
     // MARK: Views
 
@@ -37,6 +43,20 @@ class MoreTableViewController: UITableViewController {
                 jwxt.logout()
                 performSegue(withIdentifier: "unwindToLoginViewController", sender: self)
             }
+            
+            if indexPath.section == 2 {
+                // about section
+                if indexPath.row == 0 {
+                    // designer
+                    let sfVC = SFSafariViewController(url: URL(string: Constants.DesignerWebsite)!)
+                    self.present(sfVC, animated: true, completion: nil)
+                }
+                if indexPath.row == 1 {
+                    // GitHub
+                    let sfVC = SFSafariViewController(url: URL(string: Constants.GitHubLink)!)
+                    self.present(sfVC, animated: true, completion: nil)
+                }
+            }
         }
         
     }
@@ -56,6 +76,9 @@ class MoreTableViewController: UITableViewController {
             let identifier = segue.identifier {
             
             switch identifier {
+                case "TimetableSegue":
+                    destination.title = "课程时间表"
+                    destination.htmlFileName = "timetable"
                 case "DesriptionSegue":
                     destination.title = "说明"
                     destination.htmlFileName = "explanation"
