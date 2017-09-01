@@ -50,10 +50,12 @@ class JwxtApiClient {
     
     //MARK: Constants
     struct Paths {
-        static let BaseUrl = "http://uems.sysu.edu.cn/jwxt"
-        static let RealLoginUrl = "https://cas.sysu.edu.cn/cas/login?service=http%3A%2F%2Fuems.sysu.edu.cn%2Fjwxt%2FcasLogin"
+        static let NewBaseUrl = "http://uems.sysu.edu.cn/jwxt"
+        static let BaseUrl = "http://uems.sysu.edu.cn/jxgl" // legacy api
+        static let RealLoginUrl = "https://cas.sysu.edu.cn/cas/login?service=http%3A%2F%2Fuems.sysu.edu.cn%2Fjwxt%2Fapi%2Fsso%2Fcas%2Flogin%3Fpattern%3Dstudent-login"
         static let CasLoginBaseUrl = "https://cas.sysu.edu.cn"
-        static let CasLoginPath = "/casLogin"
+        static let CasLoginUrl = "http://uems.sysu.edu.cn/jwxt/api/sso/cas/login?pattern=student-login"
+        static let LegacyCasLoginPath = "/casLogin"
         
         static let InfoPath = "/xscjcxAction/xscjcxAction.action?method=judgeStu"
         static let CourseListPath = "/KcbcxAction/KcbcxAction.action?method=getList"
@@ -93,14 +95,13 @@ class JwxtApiClient {
     // retrieve login page
     func login(completion: @escaping (_ success: Bool, _ object: Any?) -> ()) {
         
-        let request = clientURLRequest(method: "GET", urlString: Paths.BaseUrl + Paths.CasLoginPath)
+        let request = clientURLRequest(method: "GET", urlString: Paths.CasLoginUrl)
         
         customDataTask(request: request) { (success, object) in
             
             // parse data and do real login
             if success {
-                // 302 redirected to
-                // https://cas.sysu.edu.cn/cas/login?service=http%3A%2F%2Fuems.sysu.edu.cn%2Fjwxt%2FcasLogin
+                // 302 redirected to RealLoginUrl
                 
                 // now get the login form from the html
                 var ltValue: String = ""
@@ -154,7 +155,7 @@ class JwxtApiClient {
         var request = clientURLRequest(method: "POST", urlString: Paths.CasLoginBaseUrl + formAction, params: form as Dictionary<String, AnyObject>?)
         
         request.setValue("https://cas.sysu.edu.cn", forHTTPHeaderField: "Origin")
-        request.setValue("https://cas.sysu.edu.cn/cas/login?service=http%3A%2F%2Fuems.sysu.edu.cn%2Fjwxt%2FcasLogin", forHTTPHeaderField: "Referer")
+        request.setValue(Paths.RealLoginUrl, forHTTPHeaderField: "Referer")
         request.setValue("gzip, deflate, br", forHTTPHeaderField: "Accept-Encoding")
         request.setValue("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8", forHTTPHeaderField: "Accept")
         request.setValue("1", forHTTPHeaderField: "Upgrade-Insecure-Requests")
@@ -167,7 +168,7 @@ class JwxtApiClient {
             
             if success {
                 
-                self.getInfo(completion: completion)
+                self.legacyApiLogin(completion: completion)
                 
             } else {
                 // login fail
@@ -176,6 +177,26 @@ class JwxtApiClient {
                 
             }
             
+        }
+    }
+    
+    func legacyApiLogin(completion: @escaping (_ success: Bool, _ object: Any?) -> ()) {
+        let request = clientURLRequest(method: "GET", urlString: Paths.BaseUrl + Paths.LegacyCasLoginPath)
+        
+        customDataTask(request: request) { (success, object) in
+            
+            var message: String = Messages.LoginSuccess
+            
+            if success {
+                
+                self.getInfo(completion: completion)
+                
+            } else {
+                // login fail
+                message = Messages.LoginError
+                completion(false, message)
+                
+            }
         }
     }
     

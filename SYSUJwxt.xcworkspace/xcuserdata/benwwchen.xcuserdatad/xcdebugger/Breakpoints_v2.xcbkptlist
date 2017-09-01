@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525690000.810925"
+            timestampString = "525961196.165668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "314"
+            endingLineNumber = "314"
             landmarkName = "getCourseList(year:term:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525690000.810925"
+            timestampString = "525961196.165668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "588"
-            endingLineNumber = "588"
+            startingLineNumber = "609"
+            endingLineNumber = "609"
             landmarkName = "clientURLRequest(method:urlString:params:data:isUemsJwxtApi:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525690000.810925"
+            timestampString = "525961196.165668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "488"
-            endingLineNumber = "488"
+            startingLineNumber = "509"
+            endingLineNumber = "509"
             landmarkName = "getGPA(year:term:isGetAll:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -874,11 +874,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525690000.810925"
+            timestampString = "525961196.165668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "login(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -890,11 +890,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525690000.810925"
+            timestampString = "525961196.165668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
             landmarkName = "realLogin(form:formAction:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -906,11 +906,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SYSUJwxt/JwxtApiClient.swift"
-            timestampString = "525689880.798628"
+            timestampString = "525961196.165668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "getInfo(completion:)"
             landmarkType = "7">
          </BreakpointContent>
