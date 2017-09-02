@@ -20,7 +20,7 @@
 
 ### 关于 TestFlight / App Store 版本
 
-TestFlight 版本还在审核中，如果想参加测试，请发邮件到 [xjw@bencww.com](mailto:xjw@bencww.com)，注明想要收到测试邀请的邮箱。 
+TestFlight 版本已通过审核，但目前教务系统改版后只能在学校内网访问，如果想参加测试，请发邮件到 [xjw@bencww.com](mailto:xjw@bencww.com)，注明想要收到测试邀请的邮箱。 
 
 App Store 版本会尽快提交审核。
 
