@@ -1,4 +1,4 @@
-# 中大小教务 (SYSUJwxt-iOS)
+# 中大小教务 (SYSUJwxt-iOS)（已废弃）
 第三方中山大学教务系统 iOS 客户端
 
 ## 说明
